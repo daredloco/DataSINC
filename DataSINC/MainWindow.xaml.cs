@@ -30,9 +30,15 @@ namespace DataSINC
 			menu_new.Click += NewMod;
 			menu_load.Click += LoadMod;
 			menu_save.Click += SaveMod;
+			menu_exit.Click += ExitApp;
 
+			//Add Update * Button click functionality
 			ngbt_save.Click += SaveNameGen;
 			pebt_save.Click += SavePersonality;
+
+			//Add new item button functionality
+			ngbt_new.Click += NewNameGen;
+			pebt_new.Click += NewPersonality;
 
 			lb_namegens.SelectionMode = SelectionMode.Single;
 			lb_namegens.SelectionChanged += Lb_namegens_SelectionChanged;
@@ -56,6 +62,29 @@ namespace DataSINC
 			pecm_new.Click += PeNewRelation;
 			pecm_edit.Click += PeEditRelation;
 			pecm_remove.Click += PeRemoveRelation;
+		}
+
+		private void NewPersonality(object sender, RoutedEventArgs e)
+		{
+			AddPopup popup = new AddPopup(AddPopup.PopupType.Personality);
+			if(popup.ShowDialog() == true)
+			{
+				GeneratePersonalityList();
+			}
+		}
+
+		private void NewNameGen(object sender, RoutedEventArgs e)
+		{
+			AddPopup popup = new AddPopup(AddPopup.PopupType.NameGenerator);
+			if(popup.ShowDialog() == true)
+			{
+				GenerateNameGenList();
+			}
+		}
+
+		private void ExitApp(object sender, RoutedEventArgs e)
+		{
+			Environment.Exit(1);
 		}
 
 		private void SavePersonality(object sender, RoutedEventArgs e)
@@ -195,6 +224,7 @@ namespace DataSINC
 						}
 						Settings.latestmod = fbd.SelectedPath;
 						Settings.Save();
+						Database.Instance = new Database(fbd.SelectedPath);
 					}
 				}
 			}

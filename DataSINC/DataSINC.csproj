@@ -56,13 +56,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddPopup.xaml.cs">
+      <DependentUpon>AddPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converter.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DataTypes.cs" />
     <Compile Include="FileHandler.cs" />
+    <Compile Include="ObservableCollection.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="TreeViewContent.cs" />
     <Compile Include="Utils.cs" />
+    <Page Include="AddPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
