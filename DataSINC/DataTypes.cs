@@ -27,6 +27,27 @@ namespace DataSINC
 				//Load content
 				Content = System.IO.File.ReadAllText(fname);
 			}
+
+			private NameGenerator()
+			{
+
+			}
+
+			public static NameGenerator Create(string name)
+			{
+				NameGenerator ng = new NameGenerator()
+				{
+					Location = System.IO.Path.Combine(Settings.latestmod, "NameGenerators", name + ".txt"),
+					Title = name,
+					Content = "-start(base,base,base,pre)\n" +
+								"-pre(base)\n" +
+								"-base(base2, base2, base2, stop)\n" +
+								"-base2(ext, stop, stop)\n" +
+								"-ext(stop)"
+				};
+
+				return ng;
+			}
 		}
 
 		public class SoftwareType
@@ -64,6 +85,22 @@ namespace DataSINC
 				Location = fname;
 				Title = fi.Name.Replace(fi.Extension, "");
 
+			}
+
+			private SoftwareType()
+			{
+
+			}
+
+			public static SoftwareType Create(string name)
+			{
+				SoftwareType st = new SoftwareType() {
+					Location = System.IO.Path.Combine(Settings.latestmod, "SoftwareTypes", name + ".tyd"),
+					Name = name,
+					Title = name
+				};
+
+				return st;
 			}
 		}
 
@@ -144,6 +181,21 @@ namespace DataSINC
 				Title = fi.Name.Replace(fi.Extension, "");
 				Converter.SoftwareTypes.FromTYD(fname);
 			}
+
+			private CompanyType()
+			{
+
+			}
+
+			public static CompanyType Create(string name)
+			{
+				CompanyType ct = new CompanyType()
+				{
+					Location = System.IO.Path.Combine(Settings.latestmod, "CompanyTypes", name + ".tyd"),
+					Title = name
+				};
+				return ct;
+			}
 		}
 
 		public class CompanyTypeTypes
@@ -199,7 +251,25 @@ namespace DataSINC
 
 				doc.AddChildren(root);
 				TydFile file = TydFile.FromDocument(doc);
-				file.Save(fname + ".tmp");
+				file.Save(fname);
+			}
+
+			public Personality()
+			{
+
+			}
+
+			public static Personality Create(string name)
+			{
+				Personality perso = new Personality() {
+				Name = name,
+				LazyStress = 0,
+				WorkLearn = 0,
+				Social = 0,
+				Relationships = new Utils.ObservableDictionary<string, double>()
+				};
+
+				return perso;
 			}
 		}
 

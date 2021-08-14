@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace DataSINC
 {
@@ -13,11 +14,11 @@ namespace DataSINC
 		public static Database Instance;
 
 		public string rootfolder;
-		public List<DataTypes.SoftwareType> SoftwareTypes = new List<DataTypes.SoftwareType>();
-		public List<DataTypes.NameGenerator> NameGenerators = new List<DataTypes.NameGenerator>();
-		public List<DataTypes.CompanyType> CompanyTypes = new List<DataTypes.CompanyType>();
-		public List<DataTypes.Personality> Personalities = new List<DataTypes.Personality>();
-		public List<DataTypes.PersonalityIncompatibility> Incompatibilities = new List<DataTypes.PersonalityIncompatibility>();
+		public ObservableList<DataTypes.SoftwareType> SoftwareTypes = new ObservableList<DataTypes.SoftwareType>();
+		public ObservableList<DataTypes.NameGenerator> NameGenerators = new ObservableList<DataTypes.NameGenerator>();
+		public ObservableList<DataTypes.CompanyType> CompanyTypes = new ObservableList<DataTypes.CompanyType>();
+		public ObservableList<DataTypes.Personality> Personalities = new ObservableList<DataTypes.Personality>();
+		public ObservableList<DataTypes.PersonalityIncompatibility> Incompatibilities = new ObservableList<DataTypes.PersonalityIncompatibility>();
 
 		public Database(string modfolder)
 		{
@@ -63,13 +64,16 @@ namespace DataSINC
 				Personalities = FileHandler.LoadPersonalities(File.ReadAllText(personalitypath));
 				Incompatibilities = FileHandler.LoadIncompatibilities(File.ReadAllText(personalitypath));
 			}
-
 			Instance = this;
 		}
 
 		public void Save()
 		{
-			foreach(DataTypes.NameGenerator ngen in NameGenerators)
+			Directory.CreateDirectory(Path.Combine(rootfolder, "SoftwareTypes"));
+			Directory.CreateDirectory(Path.Combine(rootfolder, "CompanyTypes"));
+			Directory.CreateDirectory(Path.Combine(rootfolder, "NameGenerators"));
+
+			foreach (DataTypes.NameGenerator ngen in NameGenerators)
 			{
 				if (File.Exists(ngen.Location)) File.Delete(ngen.Location);
 				File.WriteAllText(ngen.Location, ngen.Content);

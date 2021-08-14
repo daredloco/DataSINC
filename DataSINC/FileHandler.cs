@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,9 @@ namespace DataSINC
 {
 	public static class FileHandler
 	{
-		public static List<DataTypes.Personality> LoadPersonalities(string tyd)
+		public static ObservableList<DataTypes.Personality> LoadPersonalities(string tyd)
 		{
-			List<DataTypes.Personality> lst = new List<DataTypes.Personality>();
+			ObservableList<DataTypes.Personality> lst = new ObservableList<DataTypes.Personality>();
 
 			TydDocument doc = new TydDocument(TydFromText.Parse(tyd));
 			TydCollection col = doc[0] as TydCollection;
@@ -49,9 +50,9 @@ namespace DataSINC
 			return lst;
 		}
 
-		public static List<DataTypes.PersonalityIncompatibility> LoadIncompatibilities(string tyd)
+		public static ObservableList<DataTypes.PersonalityIncompatibility> LoadIncompatibilities(string tyd)
 		{
-			List<DataTypes.PersonalityIncompatibility> lst = new List<DataTypes.PersonalityIncompatibility>();
+			ObservableList<DataTypes.PersonalityIncompatibility> lst = new ObservableList<DataTypes.PersonalityIncompatibility>();
 			
 			TydDocument doc = new TydDocument(TydFromText.Parse(tyd));
 			TydCollection col = doc[0] as TydCollection;
