@@ -40,6 +40,12 @@ namespace DataSINC
 			ngbt_new.Click += NewNameGen;
 			pebt_new.Click += NewPersonality;
 
+			//Remove item functionality
+			ctmain_remove.Click += RemoveCompanyType;
+			stmain_remove.Click += RemoveSoftwareType;
+			ngmain_remove.Click += RemoveNameGenerator;
+			pemain_remove.Click += RemovePersonality;
+
 			lb_namegens.SelectionMode = SelectionMode.Single;
 			lb_namegens.SelectionChanged += Lb_namegens_SelectionChanged;
 
@@ -62,6 +68,50 @@ namespace DataSINC
 			pecm_new.Click += PeNewRelation;
 			pecm_edit.Click += PeEditRelation;
 			pecm_remove.Click += PeRemoveRelation;
+		}
+
+		private void RemovePersonality(object sender, RoutedEventArgs e)
+		{
+			if(lb_persos.SelectedItem == null) { return; }
+
+			if(MessageBoxResult.Yes != MessageBox.Show("Do you really want to delete " + ((DataTypes.Personality)lb_persos.SelectedItem).Name + "?","Warning!", MessageBoxButton.YesNo, MessageBoxImage.Hand)){
+				return;
+			}
+
+			Database.Instance.Personalities.Remove((DataTypes.Personality)lb_persos.SelectedItem);
+		}
+
+		private void RemoveNameGenerator(object sender, RoutedEventArgs e)
+		{
+			if (lb_namegens.SelectedItem == null) { return; }
+
+			if (MessageBoxResult.Yes != MessageBox.Show("Do you really want to delete " + ((DataTypes.NameGenerator)lb_namegens.SelectedItem).Title + "?", "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Hand)){
+				return;
+			}
+
+			Database.Instance.NameGenerators.Remove((DataTypes.NameGenerator)lb_namegens.SelectedItem);
+		}
+
+		private void RemoveSoftwareType(object sender, RoutedEventArgs e)
+		{
+			if (lb_softwaretypes.SelectedItem == null) { return; }
+
+			if (MessageBoxResult.Yes != MessageBox.Show("Do you really want to delete " + ((DataTypes.SoftwareType)lb_softwaretypes.SelectedItem).Title + "?", "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Hand)){
+				return;
+			}
+
+			Database.Instance.SoftwareTypes.Remove((DataTypes.SoftwareType)lb_softwaretypes.SelectedItem);
+		}
+
+		private void RemoveCompanyType(object sender, RoutedEventArgs e)
+		{
+			if (lb_companytypes.SelectedItem == null) { return; }
+
+			if (MessageBoxResult.Yes != MessageBox.Show("Do you really want to delete " + ((DataTypes.CompanyType)lb_companytypes.SelectedItem).Title + "?", "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Hand)){
+				return;
+			}
+
+			Database.Instance.CompanyTypes.Remove((DataTypes.CompanyType)lb_companytypes.SelectedItem);
 		}
 
 		private void NewPersonality(object sender, RoutedEventArgs e)

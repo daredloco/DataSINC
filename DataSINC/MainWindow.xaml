@@ -49,6 +49,12 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.Resources>
+
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Name="ctmain_remove" Header="Remove CompanyType" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
                         </ListBox>
                         <Button Name="ctbt_new" Grid.Row="1" Margin="0,5,0,5">Add CompanyType</Button>
                     </Grid>
@@ -78,6 +84,12 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.Resources>
+
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Name="stmain_remove" Header="Remove SoftwareType" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
                         </ListBox>
                         <Button Name="stbt_new" Grid.Row="1" Margin="0,5,0,5">Add SoftwareType</Button>
                     </Grid>
@@ -123,6 +135,11 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.Resources>
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Name="ngmain_remove" Header="Remove NameGenerator" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
                         </ListBox>
                         <Button Name="ngbt_new" Grid.Row="1" Margin="0,5,0,5">Add Namegenerator</Button>
                     </Grid>
@@ -173,6 +190,12 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.Resources>
+
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Name="pemain_remove" Header="Remove Personality" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
                         </ListBox>
                         <Button Name="pebt_new" Grid.Row="1" Margin="0,5,0,5">Add Personality</Button>
                     </Grid>
