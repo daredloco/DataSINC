@@ -140,7 +140,7 @@
                     <Grid Grid.Column="1">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Label Name="pel_name">Name:</Label>
-                            <TextBox Name="petb_name" Width="150"/>
+                            <TextBox Name="petb_name" />
                             <Label Name="pel_worklearn">WorkLearn:</Label>
                             <Slider Name="pes_worklearn" Minimum="-1" Maximum="1" TickFrequency="0.1" IsSnapToTickEnabled="True" />
                             <Label Name="pel_social">Social:</Label>
@@ -148,7 +148,7 @@
                             <Label Name="pel_lazystress">LazyStress:</Label>
                             <Slider Name="pes_lazystress" Minimum="-1" Maximum="1" TickFrequency="0.1" IsSnapToTickEnabled="True" />
                             <Label Name="pel_relationships">Relationships:</Label>
-                            <ListBox Name="pelb_relationships" Height="130" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                            <ListBox Name="pelb_relationships" Height="120" ScrollViewer.VerticalScrollBarVisibility="Auto" >
                                 <ListBox.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Name="pecm_new" Header="Add Relationship"/>
@@ -157,7 +157,7 @@
                                     </ContextMenu>
                                 </ListBox.ContextMenu>
                             </ListBox>
-                            <Button Name="pebt_save" Width="250" Height="30" Margin="0,5,0,0">Update Personality</Button>
+                            <Button Name="pebt_save" Width="250" Height="35" Margin="0,5,0,0">Update Personality</Button>
                         </StackPanel>
                     </Grid>
                     <Grid>
