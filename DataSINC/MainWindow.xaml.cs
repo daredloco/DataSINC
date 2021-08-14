@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -23,9 +24,12 @@ namespace DataSINC
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		public bool IsSaved = true;
+
 		public MainWindow()
 		{
 			InitializeComponent();
+			Debug.Info("Open MainWindow...");
 			Settings.Load();
 			menu_about.Click += MenuAboutClick;
 			menu_new.Click += NewMod;
@@ -34,10 +38,12 @@ namespace DataSINC
 			menu_exit.Click += ExitApp;
 
 			//Add Update * Button click functionality
+			stbt_save.Click += SaveSoftwareType;
 			ngbt_save.Click += SaveNameGen;
 			pebt_save.Click += SavePersonality;
 
 			//Add new item button functionality
+			stbt_new.Click += NewSoftwareType;
 			ngbt_new.Click += NewNameGen;
 			pebt_new.Click += NewPersonality;
 
@@ -69,6 +75,59 @@ namespace DataSINC
 			pecm_new.Click += PeNewRelation;
 			pecm_edit.Click += PeEditRelation;
 			pecm_remove.Click += PeRemoveRelation;
+
+			Closing += OnShutdown;
+			KeyDown += OnControlKeys;
+		}
+
+		private void SaveSoftwareType(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void NewSoftwareType(object sender, RoutedEventArgs e)
+		{
+			AddPopup popup = new AddPopup(AddPopup.PopupType.SoftwareType);
+			if (popup.ShowDialog() == true)
+			{
+				GenerateSoftwareTypesList();
+				IsSaved = false;
+				SetWindowTitle();
+			}
+		}
+
+		private void OnControlKeys(object sender, KeyEventArgs e)
+		{
+			if(Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.S)
+			{
+				Debug.Info("Saving mod with hotkey!");
+				Database.Instance.Save();
+				IsSaved = true;
+				SetWindowTitle();
+			}
+		}
+
+		private void OnShutdown(object sender, CancelEventArgs e)
+		{
+			if(!IsSaved)
+			{
+				Debug.Info("Trying to shut application down without saving!");
+				MessageBoxResult result = MessageBox.Show("Do you want to save your changes before leaving?", "Warning!", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+				if (result == MessageBoxResult.Yes)
+				{
+					Debug.Info("User saves mod");
+					Database.Instance.Save();
+				}else if(result == MessageBoxResult.Cancel)
+				{
+					Debug.Info("User aborts shutdown");
+					e.Cancel = true;
+				}
+				else
+				{
+					Debug.Info("User doesn't save mod");
+				}
+			}
+			Debug.Info("Bye bye User, until next time!");
 		}
 
 		private void RemovePersonality(object sender, RoutedEventArgs e)
@@ -76,10 +135,14 @@ namespace DataSINC
 			if(lb_persos.SelectedItem == null) { return; }
 
 			if(MessageBoxResult.Yes != MessageBox.Show("Do you really want to delete " + ((DataTypes.Personality)lb_persos.SelectedItem).Name + "?","Warning!", MessageBoxButton.YesNo, MessageBoxImage.Hand)){
+				Debug.Warn("User didn't want to remove personality " + ((DataTypes.Personality)lb_persos.SelectedItem).Name + "!");
 				return;
 			}
-
-			Database.Instance.Personalities.Remove((DataTypes.Personality)lb_persos.SelectedItem);
+			Debug.Info("User did remove personality " + ((DataTypes.Personality)lb_persos.SelectedItem).Name);
+			Database.Instance.RemoveData((DataTypes.Personality)lb_persos.SelectedItem);
+			//Database.Instance.Personalities.Remove((DataTypes.Personality)lb_persos.SelectedItem);
+			IsSaved = false;
+			SetWindowTitle();
 		}
 
 		private void RemoveNameGenerator(object sender, RoutedEventArgs e)
@@ -87,10 +150,14 @@ namespace DataSINC
 			if (lb_namegens.SelectedItem == null) { return; }
 
 			if (MessageBoxResult.Yes != MessageBox.Show("Do you really want to delete " + ((DataTypes.NameGenerator)lb_namegens.SelectedItem).Title + "?", "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Hand)){
+				Debug.Warn("User didn't want to remove namegenerator " + ((DataTypes.NameGenerator)lb_namegens.SelectedItem).Title + "!");
 				return;
 			}
-
-			Database.Instance.NameGenerators.Remove((DataTypes.NameGenerator)lb_namegens.SelectedItem);
+			Debug.Info("User did remove namegenerator " + ((DataTypes.NameGenerator)lb_namegens.SelectedItem).Title);
+			Database.Instance.RemoveData((DataTypes.NameGenerator)lb_namegens.SelectedItem);
+			//Database.Instance.NameGenerators.Remove((DataTypes.NameGenerator)lb_namegens.SelectedItem);
+			IsSaved = false;
+			SetWindowTitle();
 		}
 
 		private void RemoveSoftwareType(object sender, RoutedEventArgs e)
@@ -98,10 +165,14 @@ namespace DataSINC
 			if (lb_softwaretypes.SelectedItem == null) { return; }
 
 			if (MessageBoxResult.Yes != MessageBox.Show("Do you really want to delete " + ((DataTypes.SoftwareType)lb_softwaretypes.SelectedItem).Title + "?", "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Hand)){
+				Debug.Warn("User didn't want to remove softwaretype " + ((DataTypes.SoftwareType)lb_softwaretypes.SelectedItem).Title + "!");
 				return;
 			}
-
-			Database.Instance.SoftwareTypes.Remove((DataTypes.SoftwareType)lb_softwaretypes.SelectedItem);
+			Debug.Info("User did remove softwaretype " + ((DataTypes.SoftwareType)lb_softwaretypes.SelectedItem).Title);
+			Database.Instance.RemoveData((DataTypes.SoftwareType)lb_softwaretypes.SelectedItem);
+			//Database.Instance.SoftwareTypes.Remove((DataTypes.SoftwareType)lb_softwaretypes.SelectedItem);
+			IsSaved = false;
+			SetWindowTitle();
 		}
 
 		private void RemoveCompanyType(object sender, RoutedEventArgs e)
@@ -109,10 +180,14 @@ namespace DataSINC
 			if (lb_companytypes.SelectedItem == null) { return; }
 
 			if (MessageBoxResult.Yes != MessageBox.Show("Do you really want to delete " + ((DataTypes.CompanyType)lb_companytypes.SelectedItem).Title + "?", "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Hand)){
+				Debug.Warn("User didn't want to remove companytype " + ((DataTypes.CompanyType)lb_companytypes.SelectedItem).Title + "!");
 				return;
 			}
-
-			Database.Instance.CompanyTypes.Remove((DataTypes.CompanyType)lb_companytypes.SelectedItem);
+			Debug.Info("User did remove companytype " + ((DataTypes.CompanyType)lb_companytypes.SelectedItem).Title);
+			Database.Instance.RemoveData((DataTypes.CompanyType)lb_companytypes.SelectedItem);
+			//Database.Instance.CompanyTypes.Remove((DataTypes.CompanyType)lb_companytypes.SelectedItem);
+			IsSaved = false;
+			SetWindowTitle();
 		}
 
 		private void NewPersonality(object sender, RoutedEventArgs e)
@@ -121,6 +196,8 @@ namespace DataSINC
 			if(popup.ShowDialog() == true)
 			{
 				GeneratePersonalityList();
+				IsSaved = false;
+				SetWindowTitle();
 			}
 		}
 
@@ -130,6 +207,8 @@ namespace DataSINC
 			if(popup.ShowDialog() == true)
 			{
 				GenerateNameGenList();
+				IsSaved = false;
+				SetWindowTitle();
 			}
 		}
 
@@ -150,6 +229,8 @@ namespace DataSINC
 			Database.Instance.Personalities[index] = perso;
 			GeneratePersonalityList();
 
+			IsSaved = false;
+			SetWindowTitle();
 			MessageBox.Show("Personality " + perso.Name + " updated!", "Data updated!", MessageBoxButton.OK, MessageBoxImage.Information);
 		}
 
@@ -209,6 +290,26 @@ namespace DataSINC
 		{
 			if (e.AddedItems.Count < 1) { return; }
 			DataTypes.SoftwareType st = (DataTypes.SoftwareType)e.AddedItems[0];
+
+			sttb_name.Text = st.Name;
+			sttb_category.Text = st.Category;
+			sttb_desc.Text = st.Description;
+			sttb_namegens.Text = st.NameGenerator;
+			sttb_optimaldevtime.Text = st.OptimalDevTime.ToString();
+			sttb_random.Text = st.Random.ToString();
+			sttb_submarket1.Text = st.SubmarketNames[0];
+			sttb_submarket2.Text = st.SubmarketNames[1];
+			sttb_submarket3.Text = st.SubmarketNames[2];
+			stlb_categories.Items.Clear();
+			foreach(DataTypes.SoftwareTypeCategories cat in st.Categories)
+			{
+				stlb_categories.Items.Add(cat.Name);
+			}
+			stlb_features.Items.Clear();
+			foreach(DataTypes.SoftwareTypeSpecFeatures feat in st.Features)
+			{
+				stlb_features.Items.Add(feat.Name);
+			}
 		}
 
 		private void Lb_namegens_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -231,6 +332,9 @@ namespace DataSINC
 			GenerateNameGenList();
 
 			MessageBox.Show("Namegenerator " + ngen.Title + " updated!","Data updated!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+			IsSaved = false;
+			SetWindowTitle();
 		}
 
 		private void LoadMod(object sender, EventArgs args)
@@ -249,6 +353,8 @@ namespace DataSINC
 						GenerateLists();
 						Settings.latestmod = fbd.SelectedPath;
 						Settings.Save();
+						IsSaved = true;
+						SetWindowTitle();
 					}
 				}
 			}
@@ -275,6 +381,8 @@ namespace DataSINC
 						Settings.latestmod = fbd.SelectedPath;
 						Settings.Save();
 						Database.Instance = new Database(fbd.SelectedPath);
+						IsSaved = false;
+						SetWindowTitle();
 					}
 				}
 			}
@@ -288,6 +396,8 @@ namespace DataSINC
 				return;
 			}
 			Database.Instance.Save();
+			IsSaved = true;
+			SetWindowTitle();
 		}
 
 		private void GenerateLists()
@@ -337,6 +447,18 @@ namespace DataSINC
 			if(Database.Instance.Personalities.Count > 0)
 			{
 				lb_persos.SelectedIndex = 0;
+			}
+		}
+
+		private void SetWindowTitle()
+		{
+			if(IsSaved)
+			{
+				Title = "Data SINC";
+			}
+			else
+			{
+				Title = "Data SINC (unsaved changes)";
 			}
 		}
 	}

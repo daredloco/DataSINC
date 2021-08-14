@@ -80,7 +80,7 @@
                                 <DataTemplate DataType="{x:Type datatypes:SoftwareType}">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="Resources/names_icon.png" Margin="0,0,5,0" />
-                                        <TextBlock Text="{Binding Title}" />
+                                        <TextBlock Text="{Binding Name}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.Resources>
@@ -94,7 +94,37 @@
                         <Button Name="stbt_new" Grid.Row="1" Margin="0,5,0,5">Add SoftwareType</Button>
                     </Grid>
                     <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,15,7,15" HorizontalAlignment="Right">
+                            <Label Name="stl_name">Name:</Label>
+                            <TextBox Name="sttb_name" Width="150"/>
+                            <Label Name="stl_desc">Description:</Label>
+                            <TextBox Name="sttb_desc" Width="150" Height="93" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
 
+                            <Label Name="stl_random">Random:</Label>
+                            <TextBox Name="sttb_random" Width="150"/>
+                            <Label Name="stl_submarketnames">SubmarketNames:</Label>
+                            <TextBox Name="sttb_submarket1" Width="150" Margin="0,2,0,0"/>
+                            <TextBox Name="sttb_submarket2" Width="150" Margin="0,2,0,0"/>
+                            <TextBox Name="sttb_submarket3" Width="150" Margin="0,2,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Left">
+                            <Label Name="stl_category">Category:</Label>
+                            <TextBox Name="sttb_category" Width="150"/>
+                            <Label Name="stl_categories">Categories:</Label>
+                            <ListBox Name="stlb_categories" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                            <Label Name="stl_optimaldevtime">OptimalDevTime:</Label>
+                            <TextBox Name="sttb_optimaldevtime" Width="150"/>
+                            <Label Name="stl_namegens">Namegenerator:</Label>
+                            <TextBox Name="sttb_namegens" Width="150"/>
+                            <Label Name="stl_features">Features:</Label>
+                            <ListBox Name="stlb_features" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+
+                            <Button Name="stbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Softwaretype</Button>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </TabItem>

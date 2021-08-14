@@ -97,7 +97,7 @@ namespace DataSINC
 			{
 				foreach(string fname in Directory.GetFiles(softwarepath))
 				{
-					DataTypes.SoftwareType st = FileHandler.LoadSoftwareType(File.ReadAllText(fname));
+					DataTypes.SoftwareType st = FileHandler.LoadSoftwareType(fname);
 					SoftwareTypes.Add(st);
 				}
 			}

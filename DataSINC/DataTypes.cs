@@ -57,7 +57,7 @@ namespace DataSINC
 
 			//DATA
 			public string Name { get; set; }
-			public bool Override { get; set; }
+			public bool Override { get; set; } //OPTIONAL
 			public string Category { get; set; }
 			public List<SoftwareTypeCategories> Categories { get; set; } //OPTIONAL
 			public string Description { get; set; }
@@ -65,14 +65,14 @@ namespace DataSINC
 			public double Random { get; set; }
 			public int IdealPrice { get; set; } //OPTIONAL
 			public int OptimalDevTime { get; set; }
-			public int Popularity { get; set; } //OPTIONAL
+			public double Popularity { get; set; } //OPTIONAL
 			public int Retention { get; set; } //OPTIONAL
 			private double iterative;
 			public double Iterative { //OPTIONAL
 				get => iterative;
 				set { if (value > 1) { iterative = 1; return; } if (value < 0) { iterative = 0; return; } iterative = value; } 
 			}
-			public bool OSSupport { get; set; } //OPTIONAL
+			public string OSSupport { get; set; } //OPTIONAL
 			public bool OneClient { get; set; }
 			public bool InHouse { get; set; }
 			public string NameGenerator { get; set; } //OPTIONAL IF GENERATORS SET IN SUBS
@@ -84,7 +84,6 @@ namespace DataSINC
 				System.IO.FileInfo fi = new System.IO.FileInfo(fname);
 				Location = fname;
 				Title = fi.Name.Replace(fi.Extension, "");
-
 			}
 
 			private SoftwareType()

@@ -35,8 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +64,7 @@
     <Compile Include="Converter.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DataTypes.cs" />
+    <Compile Include="Debug.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="ObservableList.cs" />
     <Compile Include="Settings.cs" />
