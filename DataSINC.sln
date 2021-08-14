@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSINC", "DataSINC\DataSINC.csproj", "{861CD9A9-9CA6-463A-BFA5-66B1A571FC34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TyDSINC", "TyDSINC\TyDSINC.csproj", "{8E180464-0702-425F-A1CA-DB9876465666}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{861CD9A9-9CA6-463A-BFA5-66B1A571FC34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{861CD9A9-9CA6-463A-BFA5-66B1A571FC34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{861CD9A9-9CA6-463A-BFA5-66B1A571FC34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{861CD9A9-9CA6-463A-BFA5-66B1A571FC34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E180464-0702-425F-A1CA-DB9876465666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E180464-0702-425F-A1CA-DB9876465666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E180464-0702-425F-A1CA-DB9876465666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E180464-0702-425F-A1CA-DB9876465666}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3CA385D9-A38E-4611-9AA4-32E59ED3ADFD}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,184 @@
+﻿<Window x:Class="DataSINC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataSINC.TreeViewContent"
+        xmlns:datatypes="clr-namespace:DataSINC.DataTypes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="_Data">
+                <MenuItem Header="_New" Name="menu_new"/>
+                <MenuItem Header="_Load" Name="menu_load"/>
+                <MenuItem Header="_Save" Name="menu_save"/>
+                <MenuItem Header="_Options" Name="menu_options"/>
+                <MenuItem Header="_Exit" Name="menu_exit"/>
+            </MenuItem>
+            <MenuItem Header="About" Name="menu_about" />
+        </Menu>
+
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="Company Types" Name="tab_ctypes">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.15*" />
+                        </Grid.RowDefinitions>
+                        <ListBox Name="lb_companytypes">
+                            <ListBox.Resources>
+                                <DataTemplate DataType="{x:Type datatypes:CompanyType}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Resources/names_icon.png" Margin="0,0,5,0" />
+                                        <TextBlock Text="{Binding Title}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.Resources>
+                        </ListBox>
+                        <Button Name="ctbt_new" Grid.Row="1" Margin="0,5,0,5">Add CompanyType</Button>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        
+                    </Grid>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Software Types" Name="tab_stypes">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.15*" />
+                        </Grid.RowDefinitions>
+                        <ListBox Name="lb_softwaretypes">
+                            <ListBox.Resources>
+                                <DataTemplate DataType="{x:Type datatypes:SoftwareType}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Resources/names_icon.png" Margin="0,0,5,0" />
+                                        <TextBlock Text="{Binding Title}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.Resources>
+                        </ListBox>
+                        <Button Name="stbt_new" Grid.Row="1" Margin="0,5,0,5">Add SoftwareType</Button>
+                    </Grid>
+                    <Grid Grid.Column="1">
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Namegenerators" Name="tab_namegens">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="1">
+
+                        <StackPanel Orientation="Vertical" Margin="0,15,0,15">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Name="ngl_title">Title:</Label>
+                                <TextBox Name="ngtb_title" Width="150"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
+                                <Label Name="ngl_start" Height="25" VerticalAlignment="Top">Content:</Label>
+                                <TextBox Name="ngtb_content" Height="175" Width="250" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0">
+                                <Button Name="ngbt_save" Width="250" Height="30">Update Namegenerator</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.15*" />
+                        </Grid.RowDefinitions>
+                        <ListBox Name="lb_namegens">
+                            <ListBox.Resources>
+                                <DataTemplate DataType="{x:Type datatypes:NameGenerator}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Resources/names_icon.png" Margin="0,0,5,0" />
+                                        <TextBlock Text="{Binding Title}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.Resources>
+                        </ListBox>
+                        <Button Name="ngbt_new" Grid.Row="1" Margin="0,5,0,5">Add Namegenerator</Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Personalities" Name="tab_personalities">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="1">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <Label Name="pel_name">Name:</Label>
+                            <TextBox Name="petb_name" Width="150"/>
+                            <Label Name="pel_worklearn">WorkLearn:</Label>
+                            <Slider Name="pes_worklearn" Minimum="-1" Maximum="1" TickFrequency="0.1" IsSnapToTickEnabled="True" />
+                            <Label Name="pel_social">Social:</Label>
+                            <Slider Name="pes_social" Minimum="-1" Maximum="1" TickFrequency="0.1" IsSnapToTickEnabled="True" />
+                            <Label Name="pel_lazystress">LazyStress:</Label>
+                            <Slider Name="pes_lazystress" Minimum="-1" Maximum="1" TickFrequency="0.1" IsSnapToTickEnabled="True" />
+                            <Label Name="pel_relationships">Relationships:</Label>
+                            <ListBox Name="pelb_relationships" Height="130" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                                <ListBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Name="pecm_new" Header="Add Relationship"/>
+                                        <MenuItem Name="pecm_edit" Header="Edit Relationship"/>
+                                        <MenuItem Name="pecm_remove" Header="Remove Relationship"/>
+                                    </ContextMenu>
+                                </ListBox.ContextMenu>
+                            </ListBox>
+                            <Button Name="pebt_save" Width="250" Height="30" Margin="0,5,0,0">Update Personality</Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.15*" />
+                        </Grid.RowDefinitions>
+                        <ListBox Name="lb_persos">
+                            <ListBox.Resources>
+                                <DataTemplate DataType="{x:Type datatypes:Personality}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Resources/names_icon.png" Margin="0,0,5,0" />
+                                        <TextBlock Text="{Binding Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.Resources>
+                        </ListBox>
+                        <Button Name="pebt_new" Grid.Row="1" Margin="0,5,0,5">Add Personality</Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
