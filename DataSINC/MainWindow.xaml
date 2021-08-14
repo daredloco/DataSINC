@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DataSINC.TreeViewContent"
         xmlns:datatypes="clr-namespace:DataSINC.DataTypes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Data SINC" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />

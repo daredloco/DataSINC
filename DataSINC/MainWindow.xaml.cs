@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -299,7 +300,8 @@ namespace DataSINC
 
 		private void MenuAboutClick(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show("Editor for the game Software INC.\nVersion: 1.0\n\nUses TyDSharp from https://github.com/khornel/TyDSharp", "About", MessageBoxButton.OK, MessageBoxImage.Information);
+			string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			MessageBox.Show("Editor for the game Software INC made by daRedLoCo.\nVersion: " + version + "\n\nUses TyDSharp from https://github.com/khornel/TyDSharp", "About", MessageBoxButton.OK, MessageBoxImage.Information);
 		}
 
 		private void GenerateNameGenList()
