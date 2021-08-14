@@ -63,7 +63,7 @@
     <Compile Include="Database.cs" />
     <Compile Include="DataTypes.cs" />
     <Compile Include="FileHandler.cs" />
-    <Compile Include="ObservableCollection.cs" />
+    <Compile Include="ObservableList.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="TreeViewContent.cs" />
     <Compile Include="Utils.cs" />

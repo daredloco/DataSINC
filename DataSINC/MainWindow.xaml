@@ -96,18 +96,17 @@
 
                     <Grid Grid.Column="1">
 
-                        <StackPanel Orientation="Vertical" Margin="0,15,0,15">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Name="ngl_title">Title:</Label>
+                        <StackPanel Orientation="Vertical" Margin="0,15,0,15" HorizontalAlignment="Center">
+                            
+                                <Label Name="ngl_title" HorizontalAlignment="center">Title:</Label>
                                 <TextBox Name="ngtb_title" Width="150"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
-                                <Label Name="ngl_start" Height="25" VerticalAlignment="Top">Content:</Label>
+                            
+                            
+                                <Label Name="ngl_start" Height="25" VerticalAlignment="Top" HorizontalAlignment="Center">Content:</Label>
                                 <TextBox Name="ngtb_content" Height="175" Width="250" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0">
-                                <Button Name="ngbt_save" Width="250" Height="30">Update Namegenerator</Button>
-                            </StackPanel>
+                            
+                                <Button Name="ngbt_save" Width="250" Height="30" Margin="0,15,0,0">Update Namegenerator</Button>
+                            
                         </StackPanel>
                     </Grid>
                     <Grid>

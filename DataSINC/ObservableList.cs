@@ -27,7 +27,7 @@ namespace DataSINC
 		public int FindIndex(Predicate<T> obj)
 		{
 			int index = 0;
-		
+
 			foreach(T item in Items)
 			{
 				if(obj(item))
