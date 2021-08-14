@@ -28,15 +28,28 @@ namespace DataSINC
 		{
 			int index = 0;
 		
-			foreach(T item in base.Items)
+			foreach(T item in Items)
 			{
-				if(item.Equals((T)obj.Clone()))
+				if(obj(item))
 				{
 					return index;
 				}
 				index++;
 			}
 			return -1;
+		}
+
+		public List<T> FindAll(Predicate<T> obj)
+		{
+			List<T> lst = new List<T>();
+			foreach(T item in Items)
+			{
+				if(obj(item))
+				{
+					lst.Add(item);
+				}
+			}
+			return lst;
 		}
 	}
 }

@@ -95,7 +95,6 @@ namespace DataSINC
 			perso.WorkLearn = pes_worklearn.Value;
 			perso.Social = pes_social.Value;
 			//TODO: Handle perso.Relationships
-
 			int index = Database.Instance.Personalities.FindIndex(x => x.Name == perso.Name);
 			Database.Instance.Personalities[index] = perso;
 			GeneratePersonalityList();
