@@ -1,6 +1,10 @@
 # DataSINC
  Data Editor for Software INC
 
+## Important Information
+
+This project is at a very early stage and isn't usable!
+
 ## Usage
 TODO
 
