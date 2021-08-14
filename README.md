@@ -5,6 +5,12 @@
 
 This project is at a very early stage and isn't usable!
 
+#### Usable parts
+
+* Personalities
+* NameGenerators
+* New/Load/Save functions
+
 ## Usage
 TODO
 
