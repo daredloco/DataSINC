@@ -20,6 +20,62 @@ namespace DataSINC
 		public ObservableList<DataTypes.Personality> Personalities = new ObservableList<DataTypes.Personality>();
 		public ObservableList<DataTypes.PersonalityIncompatibility> Incompatibilities = new ObservableList<DataTypes.PersonalityIncompatibility>();
 
+		public bool RemoveData<T>(T data)
+		{
+			if(typeof(T) == typeof(DataTypes.SoftwareType))
+			{
+				DataTypes.SoftwareType d = data as DataTypes.SoftwareType;
+				try
+				{
+					File.Delete(d.Location);
+					return SoftwareTypes.Remove(d);
+				}
+				catch(Exception ex)
+				{
+					return false;
+				}
+			}else if (typeof(T) == typeof(DataTypes.NameGenerator))
+			{
+				DataTypes.NameGenerator d = data as DataTypes.NameGenerator;
+				try
+				{
+					File.Delete(d.Location);
+					return NameGenerators.Remove(d);
+				}
+				catch (Exception ex)
+				{
+					return false;
+				}
+			}
+			else if (typeof(T) == typeof(DataTypes.CompanyType))
+			{
+				DataTypes.CompanyType d = data as DataTypes.CompanyType;
+				try
+				{
+					File.Delete(d.Location);
+					return CompanyTypes.Remove(d);
+				}
+				catch (Exception ex)
+				{
+					return false;
+				}
+			}
+			else if (typeof(T) == typeof(DataTypes.Personality))
+			{
+				DataTypes.Personality d = data as DataTypes.Personality;
+				try
+				{
+					return Personalities.Remove(d);
+				}
+				catch (Exception ex)
+				{
+					return false;
+				}
+			}
+			return false;
+		}
+
+
 		public Database(string modfolder)
 		{
 			rootfolder = modfolder;
@@ -41,7 +97,7 @@ namespace DataSINC
 			{
 				foreach(string fname in Directory.GetFiles(softwarepath))
 				{
-					DataTypes.SoftwareType st = new DataTypes.SoftwareType(fname);
+					DataTypes.SoftwareType st = FileHandler.LoadSoftwareType(File.ReadAllText(fname));
 					SoftwareTypes.Add(st);
 				}
 			}
@@ -52,7 +108,7 @@ namespace DataSINC
 			{
 				foreach(string fname in Directory.GetFiles(companypath))
 				{
-					DataTypes.CompanyType ct = new DataTypes.CompanyType(fname);
+					DataTypes.CompanyType ct = FileHandler.LoadCompanyType(File.ReadAllText(fname));
 					CompanyTypes.Add(ct);
 				}
 			}
