@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -164,17 +165,59 @@ namespace DataSINC
 			public double LazyStress { get => lazystress; set { if (value > 1) { lazystress = 1; return; } if (value < -1) { lazystress = -1; return; } lazystress = value; } }
 			public Utils.ObservableDictionary<string, double> Relationships { get; set; }
 
-			public TydDocument ToTyd()
+			public TydTable ToTyd()
 			{
+				TydTable returntable = new TydTable("");
+
+				NumberFormatInfo format = new NumberFormatInfo() { NumberDecimalSeparator = "." };
+
+				List<TydString> relationships = new List<TydString>();
+				foreach(KeyValuePair<string, double> kvp in Relationships)
+				{
+					relationships.Add(new TydString(kvp.Key, kvp.Value.ToString(format)));
+				}
+
+				List<TydString> content = new List<TydString>()
+				{
+					new TydString("Name", Name),
+					new TydString("WorkLearn", WorkLearn.ToString(format)),
+					new TydString("Social", Social.ToString(format)),
+					new TydString("LazyStress", LazyStress.ToString(format))
+				};
+				TydTable relationstable = new TydTable("Relationships", relationships.ToArray());
+
+				returntable.AddChildren(content.ToArray());
+				returntable.AddChildren(relationstable);
+				return returntable;
+			}
+
+			public static void SaveDocument(List<TydTable> nodes, List<TydList> incompatibilitynodes, string fname)
+			{
+
+				TydTable root = new TydTable("PersonalityGraph", new TydList("Personalities", nodes.ToArray()), new TydList("Incompatibilities", incompatibilitynodes.ToArray()));
 				TydDocument doc = new TydDocument();
-				
-				return doc;
+
+				doc.AddChildren(root);
+				TydFile file = TydFile.FromDocument(doc);
+				file.Save(fname + ".tmp");
 			}
 		}
 
-		public class PersonalityIncompatibilities
+		public class PersonalityIncompatibility
 		{
-			Dictionary<string, string> Incompatibilities = new Dictionary<string, string>();
+			public string Key { get; set; }
+			public string Value { get; set; }
+
+			public PersonalityIncompatibility(string key, string value)
+			{
+				Key = key;
+				Value = value;
+			}
+
+			public TydList ToTyd()
+			{
+				return new TydList("", Key, Value);
+			}
 		}
 	}
 }

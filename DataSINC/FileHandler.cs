@@ -18,6 +18,7 @@ namespace DataSINC
 			TydDocument doc = new TydDocument(TydFromText.Parse(tyd));
 			TydCollection col = doc[0] as TydCollection;
 			TydCollection persos = col.GetChild("Personalities") as TydCollection;
+			TydList incompatibilities = col.GetChild("Incompatibilities") as TydList;
 
 			NumberFormatInfo format = new NumberFormatInfo() { NumberDecimalSeparator = "." };
 			
@@ -43,6 +44,21 @@ namespace DataSINC
 					}
 				}
 				lst.Add(perso);
+			}
+
+			return lst;
+		}
+
+		public static List<DataTypes.PersonalityIncompatibility> LoadIncompatibilities(string tyd)
+		{
+			List<DataTypes.PersonalityIncompatibility> lst = new List<DataTypes.PersonalityIncompatibility>();
+			
+			TydDocument doc = new TydDocument(TydFromText.Parse(tyd));
+			TydCollection col = doc[0] as TydCollection;
+			TydList incompatibilities = col.GetChild("Incompatibilities") as TydList;
+			foreach (TydList node in incompatibilities)
+			{
+				lst.Add(new DataTypes.PersonalityIncompatibility(node.GetNodeValues().ToArray()[0],node.GetNodeValues().ToArray()[1]));
 			}
 			return lst;
 		}

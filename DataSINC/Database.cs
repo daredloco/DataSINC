@@ -17,6 +17,7 @@ namespace DataSINC
 		public List<DataTypes.NameGenerator> NameGenerators = new List<DataTypes.NameGenerator>();
 		public List<DataTypes.CompanyType> CompanyTypes = new List<DataTypes.CompanyType>();
 		public List<DataTypes.Personality> Personalities = new List<DataTypes.Personality>();
+		public List<DataTypes.PersonalityIncompatibility> Incompatibilities = new List<DataTypes.PersonalityIncompatibility>();
 
 		public Database(string modfolder)
 		{
@@ -59,7 +60,8 @@ namespace DataSINC
 			string personalitypath = Path.Combine(modfolder, "Personalities.tyd");
 			if(File.Exists(personalitypath))
 			{
-				 Personalities = FileHandler.LoadPersonalities(File.ReadAllText(personalitypath));
+				Personalities = FileHandler.LoadPersonalities(File.ReadAllText(personalitypath));
+				Incompatibilities = FileHandler.LoadIncompatibilities(File.ReadAllText(personalitypath));
 			}
 
 			Instance = this;
@@ -73,8 +75,17 @@ namespace DataSINC
 				File.WriteAllText(ngen.Location, ngen.Content);
 			}
 			string personalitypath = Path.Combine(rootfolder, "Personalities.tyd");
-			if (File.Exists(personalitypath)) { File.Delete(personalitypath); }
-			
+			List<Tyd.TydTable> persotyd = new List<Tyd.TydTable>();
+			foreach(DataTypes.Personality perso in Personalities)
+			{
+				persotyd.Add(perso.ToTyd());
+			}
+			List<Tyd.TydList> incotyd = new List<Tyd.TydList>();
+			foreach(DataTypes.PersonalityIncompatibility inco in Incompatibilities)
+			{
+				incotyd.Add(inco.ToTyd());
+			}
+			DataTypes.Personality.SaveDocument(persotyd, incotyd, personalitypath);
 			MessageBox.Show("Mod saved!");
 		}
 	}
