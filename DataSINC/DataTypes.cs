@@ -101,6 +101,20 @@ namespace DataSINC
 
 				return st;
 			}
+
+			public void Save()
+			{
+				TydDocument doc = new TydDocument();
+				TydTable root = new TydTable("SoftwareType");
+				root.AddChildren(
+					new TydString("Name", Name),
+					new TydString("Category", Category),
+					new TydString("Description", Description)
+					);
+
+				TydFile file = TydFile.FromDocument(doc);
+				file.Save(Location);
+			}
 		}
 
 		public class SoftwareTypeCategories
@@ -119,6 +133,25 @@ namespace DataSINC
 			private double iterative;
 			public double Iterative { get => iterative; set { if (value > 1) { iterative = 1; return; } if (value < 0) { iterative = 0; return; } iterative = value; } }
 			public string NameGenerator { get; set; } //OPTIONAL
+
+			public TydTable ToTyd()
+			{
+				TydTable list = new TydTable("");
+				list.AddChildren(
+					Utils.TydHelpers.ConvertString(Name, "Name"),
+					Utils.TydHelpers.ConvertString(Unlock, "Unlock"),
+					Utils.TydHelpers.ConvertString(Popularity, "Popularity")
+					);
+				list.AddChildren(Utils.TydHelpers.ConvertList(Submarkets, "Submarkets"));
+				list.AddChildren(
+					Utils.TydHelpers.ConvertString(TimeScale, "TimeScale"),
+					Utils.TydHelpers.ConvertString(Retention, "Retention"),
+					Utils.TydHelpers.ConvertString(IdealPrice, "IdealPrice"),
+					Utils.TydHelpers.ConvertString(Iterative, "Iterative"),
+					Utils.TydHelpers.ConvertString(NameGenerator, "NameGenerator")
+					);
+				return list;
+			}
 		}
 
 		public class SoftwareTypeSpecFeatures
@@ -138,6 +171,8 @@ namespace DataSINC
 			public bool Optional { get; set; } //OPTIONAL (Will be OFF by default)
 			public List<string> SoftwareCategories { get; set; } //OPTIONAL
 			public List<SoftwareTypeSubFeatures> Features { get; set; }
+
+			
 		}
 
 		public class SoftwareTypeSubFeatures

@@ -103,12 +103,12 @@ namespace DataSINC
 			}
 
 			//Load Company Types
-			string companypath = Path.Combine(modfolder, "SoftwareTypes");
+			string companypath = Path.Combine(modfolder, "CompanyTypes");
 			if(Directory.Exists(companypath))
 			{
 				foreach(string fname in Directory.GetFiles(companypath))
 				{
-					DataTypes.CompanyType ct = FileHandler.LoadCompanyType(File.ReadAllText(fname));
+					DataTypes.CompanyType ct = FileHandler.LoadCompanyType(fname);
 					CompanyTypes.Add(ct);
 				}
 			}

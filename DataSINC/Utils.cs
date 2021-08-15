@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Tyd;
 
 namespace DataSINC
 {
@@ -238,6 +240,87 @@ namespace DataSINC
 			}
 
 			#endregion
+		}
+
+		public static class TydHelpers
+		{
+			public static TydList ConvertList<T>(List<T> list, string name = "")
+			{
+				TydList tydlist = new TydList(name);
+				foreach(T content in list)
+				{
+					tydlist.AddChildren(new TydString("", content as string));
+				}
+				return tydlist;
+			}
+
+			public static TydTable ConvertTable<T>(Dictionary<string,T> dictionary, string name = "")
+			{
+				TydTable tydtable = new TydTable(name);
+				foreach(KeyValuePair<string,T> kvp in dictionary)
+				{
+					tydtable.AddChildren(new TydString(kvp.Key, kvp.Value as string));
+				}
+				return tydtable;
+			}
+
+			public static TydString ConvertString<T>(T value, string name = "")
+			{
+				double doubleval;
+				if(double.TryParse(value as string, out doubleval))
+				{
+					return new TydString(name, Helpers.DoubleToString(doubleval));
+				}
+				return new TydString(name, value as string);
+			}
+		}
+
+		public static class Helpers
+		{
+			public static string DoubleToString(double number)
+			{
+				NumberFormatInfo format = new NumberFormatInfo() { NumberDecimalSeparator = "." };
+				return number.ToString(format);
+			}
+
+			public static bool IsDouble<T>(T variable)
+			{
+				if(variable.GetType() == typeof(double))
+				{
+					//Check if variable is of type double
+					return true;
+				}else if(variable.GetType() == typeof(decimal))
+				{
+					//Check if variable is of type decimal
+					return true;
+				}else if(variable.GetType() == typeof(float))
+				{
+					//Check if variable is of type float
+					return true;
+				}
+
+				if(variable.GetType() != typeof(string))
+				{
+					//Check if variable is of type string
+					return false;
+				}
+
+				//Check if variable can be parsed to double
+				if (double.TryParse(variable as string, out _))
+				{
+					return true;
+				}
+
+				//Check if variable can be parsed to double 
+				string variant1 = variable as string;
+				variant1 = variant1.Replace(",", ".");
+				if (double.TryParse(variant1, out _))
+				{
+					return true;
+				}
+
+				return false;
+			}
 		}
 	}
 }

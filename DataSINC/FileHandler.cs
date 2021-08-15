@@ -70,11 +70,37 @@ namespace DataSINC
 			string tyd = System.IO.File.ReadAllText(fname);
 			TydDocument doc = new TydDocument(TydFromText.Parse(tyd));
 			TydCollection col = doc[0] as TydCollection;
+
 			string name = col.GetChildValue("Name");
+
+			TydNode ossupportnode = col.GetChild("OSSupport", false);
+			string ossupportstr = null;
+			if(ossupportnode != null)
+			{
+				if(ossupportnode.GetType() == typeof(TydList))
+				{
+					foreach(string str in ((TydList)ossupportnode).GetChildValues())
+					{
+						if(ossupportstr == null)
+						{
+							ossupportstr = str;
+						}
+						else
+						{
+							ossupportstr += ";" + str;
+						}
+					}
+				}
+				else
+				{
+					ossupportstr = ((TydString)ossupportnode).GetNodeValues().ToArray()[0];
+				}
+			}
+
 			bool overwrite = col.GetChildValue<bool>("Override", false);
 			string category = col.GetChildValue("Category");
 			TydList categories = col.GetChild<TydList>("Categories");
-			string description = col.GetChildValue("Description");
+			string description = col.GetChildValue("Description",false);
 			int unlock = col.GetChildValue<int>("Unlock", false);
 			double random = double.Parse(col.GetChildValue("Random"),format);
 			int idealprice = col.GetChildValue<int>("IdealPrice",false);
@@ -82,11 +108,21 @@ namespace DataSINC
 			double popularity = double.Parse(col.GetChildValue("Popularity",false,"0"),format);
 			int retention = col.GetChildValue<int>("Retention",false);
 			double iterative = double.Parse(col.GetChildValue("Iterative",false,"0"),format);
-			string ossupport = col.GetChildValue("OSSupport",false);
+			string ossupport = ossupportstr;
 			bool oneclient = col.GetChildValue<bool>("OneClient",false);
 			bool inhouse = col.GetChildValue<bool>("InHouse",false);
 			string namegen = col.GetChildValue<string>("NameGenerator",false);
-			TydList submarketnames = col.GetChild<TydList>("SubmarketNames");
+
+			List<string> smarketnames = new List<string>();
+			TydNode submarketnames = col.GetChild("SubmarketNames");
+			if (submarketnames.GetType() == typeof(TydString))
+			{
+				smarketnames.Add(submarketnames.GetNodeValues().First());
+			}
+			else
+			{
+				smarketnames.AddRange(((TydList)submarketnames).GetChildValues().ToList());
+			}
 			TydList features = col.GetChild<TydList>("Features");
 
 			List<DataTypes.SoftwareTypeCategories> cats = new List<DataTypes.SoftwareTypeCategories>();
@@ -94,18 +130,27 @@ namespace DataSINC
 			{
 				foreach (TydCollection catcol in categories)
 				{
-					TydList catsubmarkets = catcol.GetChild<TydList>("Submarkets");
+					List<int> smarkets = new List<int>();
+					TydNode submarketsnode = catcol.GetChild("Submarkets");
+					if(submarketsnode.GetType() == typeof(TydString))
+					{
+						smarkets.Add(int.Parse(submarketsnode.GetNodeValues().First()));
+					}
+					else
+					{
+						smarkets.AddRange(((TydList)submarketsnode).GetChildValues<int>().ToList());
+					}
 
 					DataTypes.SoftwareTypeCategories stc = new DataTypes.SoftwareTypeCategories()
 					{
 						Name = catcol.GetChildValue("Name"),
-						Description = catcol.GetChildValue("Description"),
+						Description = catcol.GetChildValue("Description",false),
 						Popularity = double.Parse(catcol.GetChildValue("Popularity"), format),
 						Retention = catcol.GetChildValue<int>("Retention"),
 						TimeScale = double.Parse(catcol.GetChildValue("TimeScale"), format),
 						Iterative = double.Parse(catcol.GetChildValue("Iterative"), format),
-						IdealPrice = catcol.GetChildValue<int>("IdealPrice"),
-						Submarkets = catsubmarkets.GetChildValues<int>().ToList(),
+						IdealPrice = catcol.GetChildValue<int>("IdealPrice",false),
+						Submarkets = smarkets,
 						NameGenerator = catcol.GetChildValue("NameGenerator", false),
 						Unlock = catcol.GetChildValue<int>("Unlock", false),
 					};
@@ -116,64 +161,83 @@ namespace DataSINC
 			{
 				Debug.Info(name + " doesnt have categories!");
 			}
-			
+
 
 			List<DataTypes.SoftwareTypeSpecFeatures> feats = new List<DataTypes.SoftwareTypeSpecFeatures>();
 			foreach(TydCollection featcol in features)
 			{
-				TydList deplst = featcol.GetChild<TydList>("Dependencies");
+
+				TydList deplst = new TydList("");
 				TydList catlst = featcol.GetChild<TydList>("SoftwareCategories");
-				TydList sublst = featcol.GetChild<TydList>("Submarkets");
-				
+				TydNode subnode = featcol.GetChild("Submarkets");
 
-				TydList subfeatures = featcol.GetChild<TydList>("Features");
-				List<DataTypes.SoftwareTypeSubFeatures> sublist = new List<DataTypes.SoftwareTypeSubFeatures>();
-				foreach(TydCollection subcol in subfeatures)
+				TydNode depnode = featcol.GetChild("Dependencies", false);
+				if (depnode != null && depnode.GetType() == typeof(TydString))
 				{
-					string sfname = subcol.GetChildValue("Name");
-					double sfcodeart = double.Parse(subcol.GetChildValue("CodeArt"), format);
-					string sfdescription = subcol.GetChildValue("Description", false);
-					int sfdevtime = subcol.GetChildValue<int>("DevTime");
-					int sflevel = subcol.GetChildValue<int>("Level");
-					string sfscript = subcol.GetChildValue("Script_EntryPoint", false);
-					double sfserver = double.Parse(subcol.GetChildValue("Server", false, "0"), format);
-					int sfunlock = subcol.GetChildValue<int>("Unlock", false);
+					deplst.AddChild(depnode);
+				}
+				else
+				{
+					deplst = depnode as TydList;
+				}
 
-					TydList softcat = subcol.GetChild<TydList>("SoftwareCategories",false);
-
-
-					//IF LEVEL IS 3 SET SuBMARKETS TO 0
-					TydList submark = null;
-					if (sflevel != 3)
+				TydList subfeatures = featcol.GetChild<TydList>("Features", false);
+				List<DataTypes.SoftwareTypeSubFeatures> sublist = new List<DataTypes.SoftwareTypeSubFeatures>();
+				if(subfeatures != null)
+				{
+					foreach (TydCollection subcol in subfeatures)
 					{
-						submark = subcol.GetChild<TydList>("Submarkets", false);
+						string sfname = subcol.GetChildValue("Name");
+						double sfcodeart = double.Parse(subcol.GetChildValue("CodeArt"), format);
+						string sfdescription = subcol.GetChildValue("Description", false);
+						int sfdevtime = subcol.GetChildValue<int>("DevTime");
+						int sflevel = subcol.GetChildValue<int>("Level");
+						string sfscript = subcol.GetChildValue("Script_EntryPoint", false);
+						double sfserver = double.Parse(subcol.GetChildValue("Server", false, "0"), format);
+						int sfunlock = subcol.GetChildValue<int>("Unlock", false);
+
+						TydList softcat = subcol.GetChild<TydList>("SoftwareCategories", false);
+
+
+						//IF LEVEL IS 3 SET SuBMARKETS TO 0
+						TydList submark = null;
+						TydNode submarknode = subcol.GetChild("Submarkets", false);
+						if (sflevel != 3 && submarknode.GetType() == typeof(TydList))
+						{
+							submark = subcol.GetChild<TydList>("Submarkets", false);
+						}
+
+						List<string> softcatlist = new List<string>();
+						if (softcat != null)
+						{
+							softcatlist = softcat.GetChildValues().ToList();
+						}
+						List<int> submarklist = new List<int>() { 0, 0, 0 };
+						if (submark != null && submarknode.GetType() == typeof(TydList))
+						{
+							submarklist = submark.GetChildValues<int>().ToList();
+						}
+						else if (submark == null & submarknode.GetType() == typeof(TydString))
+						{
+							submarklist = new List<int>() { ((TydString)submarknode).GetValue<int>() };
+						}
+
+						DataTypes.SoftwareTypeSubFeatures subfeature = new DataTypes.SoftwareTypeSubFeatures()
+						{
+							Name = sfname,
+							CodeArt = sfcodeart,
+							Description = sfdescription,
+							DevTime = sfdevtime,
+							Level = sflevel,
+							Script_EntryPoint = sfscript,
+							Server = sfserver,
+							SoftwareCategories = softcatlist,
+							Submarkets = submarklist,
+							Unlock = sfunlock
+						};
+						sublist.Add(subfeature);
 					}
 
-					List<string> softcatlist = new List<string>();
-					if(softcat != null)
-					{
-						softcatlist = softcat.GetChildValues().ToList();
-					}
-					List<int> submarklist = new List<int>() { 0, 0, 0 };
-					if(submark != null)
-					{
-						submarklist = submark.GetChildValues<int>().ToList();
-					}
-
-					DataTypes.SoftwareTypeSubFeatures subfeature = new DataTypes.SoftwareTypeSubFeatures()
-					{
-						Name = sfname,
-						CodeArt = sfcodeart,
-						Description = sfdescription,
-						DevTime = sfdevtime,
-						Level = sflevel,
-						Script_EntryPoint = sfscript,
-						Server = sfserver,
-						SoftwareCategories = softcatlist,
-						Submarkets = submarklist,
-						Unlock = sfunlock
-					};
-					sublist.Add(subfeature);
 				}
 
 				//LOAD SOFTWARETYPESPECFEATURES
@@ -188,12 +252,14 @@ namespace DataSINC
 					catfeatlist = catlst.GetChildValues().ToList();
 				}
 				List<int> subfeatlist = new List<int>();
-				if (sublst != null)
+				if (subnode != null && subnode.GetType() == typeof(TydList))
 				{
-					subfeatlist = sublst.GetChildValues<int>().ToList();
+					subfeatlist = ((TydList)subnode).GetChildValues<int>().ToList();
 				}
-
-				Debug.Info("SOFTWARETYPESPECFEATURE: " + name + " => " + featcol.GetChildValue("Name"));
+				else if(subnode != null && subnode.GetType() == typeof(TydString))
+				{
+					subfeatlist = new List<int>() { ((TydString)subnode).GetValue<int>() };
+				}
 
 				DataTypes.SoftwareTypeSpecFeatures stf = new DataTypes.SoftwareTypeSpecFeatures()
 				{
@@ -231,7 +297,7 @@ namespace DataSINC
 				OneClient = oneclient,
 				InHouse = inhouse,
 				NameGenerator = namegen,
-				SubmarketNames = submarketnames.GetChildValues().ToList(),
+				SubmarketNames = smarketnames,
 				Features = feats
 			};
 			return st;
