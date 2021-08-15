@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("TyDSINC")]
 [assembly: AssemblyDescription("TyDSharp for Software INC")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Tynan Sylvester & Kenneth Larsen")]
+[assembly: AssemblyCompany("Tynan Sylvester & Kenneth Larsen & Roman Wanner")]
 [assembly: AssemblyProduct("TyDSINC")]
-[assembly: AssemblyCopyright("Copyright © Tynan Sylvester, Kenneth Larsen 2021")]
+[assembly: AssemblyCopyright("Copyright © Tynan Sylvester, Kenneth Larsen, Roman Wanner 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // indem Sie "*" wie unten gezeigt eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]

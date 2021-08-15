@@ -51,10 +51,12 @@
     <Compile Include="Nodes\TydString.cs" />
     <Compile Include="Nodes\TydTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TydSerializer.cs" />
     <Compile Include="TydFile.cs" />
     <Compile Include="TydFromText.cs" />
     <Compile Include="TydToText.cs" />
     <Compile Include="TydXml.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
