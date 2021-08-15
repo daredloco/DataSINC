@@ -283,6 +283,16 @@ namespace DataSINC
 				return number.ToString(format);
 			}
 
+			public static double StringToDouble(string str)
+			{
+				if(!IsDouble(str))
+				{
+					throw new InvalidCastException("Can't cast the string to a double!");
+				}
+				NumberFormatInfo format = new NumberFormatInfo() { NumberDecimalSeparator = "." };
+				return double.Parse(str, format);
+			}
+
 			public static bool IsDouble<T>(T variable)
 			{
 				if(variable.GetType() == typeof(double))
@@ -305,8 +315,9 @@ namespace DataSINC
 					return false;
 				}
 
+				NumberFormatInfo format = new NumberFormatInfo() { NumberDecimalSeparator = "." };
 				//Check if variable can be parsed to double
-				if (double.TryParse(variable as string, out _))
+				if (double.TryParse(variable as string, NumberStyles.Any, format, out _))
 				{
 					return true;
 				}
@@ -314,7 +325,7 @@ namespace DataSINC
 				//Check if variable can be parsed to double 
 				string variant1 = variable as string;
 				variant1 = variant1.Replace(",", ".");
-				if (double.TryParse(variant1, out _))
+				if (double.TryParse(variable as string, NumberStyles.Any, format, out _))
 				{
 					return true;
 				}

@@ -72,7 +72,7 @@ namespace DataSINC
 				get => iterative;
 				set { if (value > 1) { iterative = 1; return; } if (value < 0) { iterative = 0; return; } iterative = value; } 
 			}
-			public string OSSupport { get; set; } //OPTIONAL
+			public List<string> OSSupport { get; set; } //OPTIONAL
 			public bool OneClient { get; set; }
 			public bool InHouse { get; set; }
 			public string NameGenerator { get; set; } //OPTIONAL IF GENERATORS SET IN SUBS

@@ -99,14 +99,23 @@ namespace DataSINC
 			Log(msg, LogType.Error);
 		}
 
-		public static void Exception(Exception ex)
+		public static void Exception(Exception ex, bool throwexeption = true)
 		{
-			string msg = "Message: " + ex.Message + "\n" + "Stacktrace: " + ex.StackTrace + "\n" + "Method: " + ex.TargetSite.Name + "\n" + "Data: ";
-			foreach(var data in (Dictionary<string,string>)ex.Data)
+			string msg = "Message: " + ex.Message + "\n";
+
+			if(ex.Data != null)
 			{
-				msg += data.Key + " => " + data.Value + "\n";
+				foreach (var data in ex.Data)
+				{
+					msg += data.ToString() + "\n";
+				}
 			}
 			Log(msg, LogType.Exception);
+
+			if(throwexeption)
+			{
+				throw ex;
+			}
 		}
 	}
 }

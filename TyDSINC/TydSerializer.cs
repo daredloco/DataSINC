@@ -51,11 +51,12 @@ namespace Tyd
 		}
 
 		/// <summary>
-		/// Deserializes a TydTable into a Dictionary<string, T>
+		/// Deserializes a TydTable into a Dictionary<string, T>.
+		/// Throws an InvalidCastException if can't parse TydTable content to TydString
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="table"></param>
-		/// <returns></returns>
+		/// <typeparam name="T">The type of the value inside the dictionary</typeparam>
+		/// <param name="table">The TydTable you want to convert</param>
+		/// <returns>A Dictionary<string, T> from the TydTable</returns>
 		public static Dictionary<string, T> Deserialize<T>(TydTable table)
 		{
 			Dictionary<string, T> dict = new Dictionary<string, T>();
@@ -82,12 +83,13 @@ namespace Tyd
 		//}
 
 		/// <summary>
-		/// 
+		/// Deserializes a TydList into a List<T>
+		/// Throws an InvalidCastException if can't parse List<T> content to a string
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="list"></param>
-		/// <param name="name"></param>
-		/// <returns></returns>
+		/// <typeparam name="T">The type of content inside the List (Needs to be convertable into a string)</typeparam>
+		/// <param name="list">The list containing the content you want to serialize</param>
+		/// <param name="name">The name of the TydList</param>
+		/// <returns>A TydList containing the serialized data</returns>
 		public static TydList Serialize<T>(List<T> list, string name = "")
 		{
 			TydList tydlist = new TydList(name);
@@ -103,13 +105,14 @@ namespace Tyd
 		}
 
 		/// <summary>
-		/// 
+		/// Deserializes a TydTable into a Dictionary<T1, T2>.
+		/// Throws an InvalidCastException if can't parse the key or value inside the Dictionary into a string
 		/// </summary>
-		/// <typeparam name="T1"></typeparam>
-		/// <typeparam name="T2"></typeparam>
-		/// <param name="dict"></param>
-		/// <param name="name"></param>
-		/// <returns></returns>
+		/// <typeparam name="T1">The type of the key inside the Dictionary (Needs to be convertable into a string)</typeparam>
+		/// <typeparam name="T2">The type of the value inside the Dictionary (Needs to be convertable into a string)</typeparam>
+		/// <param name="dict">The dictionary containing the data you want to serialize</param>
+		/// <param name="name">The name of the TydTable</param>
+		/// <returns>A TydTable with the serialized data</returns>
 		public static TydTable Serialize<T1,T2>(Dictionary<T1,T2> dict, string name = "")
 		{
 			TydTable tydtable = new TydTable(name);

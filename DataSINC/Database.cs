@@ -84,41 +84,49 @@ namespace DataSINC
 			string namegenpath = Path.Combine(modfolder, "NameGenerators");
 			if(Directory.Exists(namegenpath))
 			{
+				Debug.Info("Loading NameGenerators");
 				foreach(string fname in Directory.GetFiles(namegenpath))
 				{
 					DataTypes.NameGenerator ng = new DataTypes.NameGenerator(fname);
 					NameGenerators.Add(ng);
 				}
+				Debug.Info("Done loading NameGenerators");
 			}
 
 			//Load Software Types
 			string softwarepath = Path.Combine(modfolder, "SoftwareTypes");
 			if(Directory.Exists(softwarepath))
 			{
+				Debug.Info("Loading SoftwareTypes");
 				foreach(string fname in Directory.GetFiles(softwarepath))
 				{
 					DataTypes.SoftwareType st = FileHandler.LoadSoftwareType(fname);
 					SoftwareTypes.Add(st);
 				}
+				Debug.Info("Done loading Softwaretypes");
 			}
 
 			//Load Company Types
 			string companypath = Path.Combine(modfolder, "CompanyTypes");
 			if(Directory.Exists(companypath))
 			{
+				Debug.Info("Loading CompanyTypes");
 				foreach(string fname in Directory.GetFiles(companypath))
 				{
 					DataTypes.CompanyType ct = FileHandler.LoadCompanyType(fname);
 					CompanyTypes.Add(ct);
 				}
+				Debug.Info("Done loading CompanyTypes");
 			}
 
 			//Load Personalities
 			string personalitypath = Path.Combine(modfolder, "Personalities.tyd");
 			if(File.Exists(personalitypath))
 			{
+				Debug.Info("Loading Personalities");
 				Personalities = FileHandler.LoadPersonalities(File.ReadAllText(personalitypath));
 				Incompatibilities = FileHandler.LoadIncompatibilities(File.ReadAllText(personalitypath));
+				Debug.Info("Done loading Personalities");
 			}
 			Instance = this;
 		}
