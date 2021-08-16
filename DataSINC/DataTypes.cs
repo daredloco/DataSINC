@@ -96,7 +96,10 @@ namespace DataSINC
 				SoftwareType st = new SoftwareType() {
 					Location = System.IO.Path.Combine(Settings.latestmod, "SoftwareTypes", name + ".tyd"),
 					Name = name,
-					Title = name
+					Title = name,
+					SubmarketNames = new List<string>() { "0", "0", "0" },
+					Categories = new List<SoftwareTypeCategories>(),
+					Features = new List<SoftwareTypeSpecFeatures>()
 				};
 
 				return st;
@@ -193,27 +196,38 @@ namespace DataSINC
 			public string Script_EntryPoint { get; set; } //OPTIONAL
 		}
 
+		[Serializable]
 		public class CompanyType
 		{
-			public string Location { get; set; }
-			public string Title { get; set; }
+			[NonSerialized]
+			public string Location;
+			[NonSerialized]
+			private string title;
+			public string Title { get => title; set => title = value; }
 
 			//DATA
-			public string Specialization { get; set; }
-			private double peryear;
-			public double PerYear { get => peryear; set { if (value > 1) { peryear = 1; return; } if (value < 0) { peryear = 0; return; } peryear = value; } }
-			public uint Min { get; set; }
-			public uint Max { get; set; }
-			public bool Frameworks { get; set; }
-			public List<CompanyTypeTypes> Types { get; set; }
-			public string NameGen { get; set; }
+			public string Specialization;
+			private double PerYear;
+			public double peryear { get => PerYear; set { if (value > 1) { PerYear = 1; } else if (value < 0) { PerYear = 0; return; } else { PerYear = value; } } }
+			public uint Min;
+			public uint Max;
+			public bool Frameworks;
+			public CompanyTypeTypes[] Types;
+			public string NameGenerator;
 
 			public CompanyType(string fname)
 			{
 				System.IO.FileInfo fi = new System.IO.FileInfo(fname);
 				Location = fname;
 				Title = fi.Name.Replace(fi.Extension, "");
-				Converter.SoftwareTypes.FromTYD(fname);
+				CompanyType ct = FromFile(fname);
+				Specialization = ct.Specialization;
+				peryear = ct.peryear;
+				Min = ct.Min;
+				Max = ct.Max;
+				Frameworks = ct.Frameworks;
+				Types = ct.Types;
+				NameGenerator = ct.NameGenerator;
 			}
 
 			private CompanyType()
@@ -223,20 +237,39 @@ namespace DataSINC
 
 			public static CompanyType Create(string name)
 			{
+				List<CompanyTypeTypes> dict = new List<CompanyTypeTypes>();
 				CompanyType ct = new CompanyType()
 				{
 					Location = System.IO.Path.Combine(Settings.latestmod, "CompanyTypes", name + ".tyd"),
-					Title = name
+					Title = name,
+					Frameworks = true,
+					Min = 0,
+					Max = 1,
+					NameGenerator = "NameGenerator",
+					PerYear = 1,
+					Specialization = "Special",
+					Types = dict.ToArray()
 				};
+				return ct;
+			}
+
+			public static CompanyType FromFile(string fname)
+			{
+				System.IO.FileInfo fi = new System.IO.FileInfo(fname);
+				TydDocument doc = TydFile.FromFile(fname).DocumentNode;
+				CompanyType ct = TydConverter.Deserialize<CompanyType>(doc[0]);
+				ct.Location = fname;
+				ct.Title = fi.Name.Replace(fi.Extension, "");
 				return ct;
 			}
 		}
 
+		[Serializable]
 		public class CompanyTypeTypes
 		{
 			//DATA
-			public string Software { get; set; }
-			public int Chance { get; set; }
+			public string Software;
+			public double Chance;
 		}
 
 		public class Personality

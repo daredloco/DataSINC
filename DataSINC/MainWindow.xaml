@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataSINC.TreeViewContent"
         xmlns:datatypes="clr-namespace:DataSINC.DataTypes"
+        xmlns:tbvalues="clr-namespace:DataSINC.TextboxValues"
         mc:Ignorable="d"
         Title="Data SINC" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
@@ -17,7 +18,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Header="_Data">
+            <MenuItem Header="Data">
                 <MenuItem Header="_New" Name="menu_new"/>
                 <MenuItem Header="_Load" Name="menu_load"/>
                 <MenuItem Header="_Save" Name="menu_save"/>
@@ -59,7 +60,22 @@
                         <Button Name="ctbt_new" Grid.Row="1" Margin="0,5,0,5">Add CompanyType</Button>
                     </Grid>
                     <Grid Grid.Column="1">
-                        
+                        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,15,7,5" HorizontalAlignment="Center">
+                            <Label Name="ctl_spec">Specialization:</Label>
+                            <TextBox Name="cttb_spec" Width="150"/>
+                            <Label Name="ctl_peryear">Per Year:</Label>
+                            <TextBox Name="cttb_peryear" Width="150"/>
+                            <Label Name="ctl_min">Min:</Label>
+                            <TextBox Name="cttb_min" Width="150"/>
+                            <Label Name="ctl_max">Max:</Label>
+                            <TextBox Name="cttb_max" Width="150"/>
+                            <Label Name="ctl_namegen">Namegenerator:</Label>
+                            <TextBox Name="cttb_namegen" Width="150"/>
+                            <Label Name="ctl_types">Types: (Software: Chance)</Label>
+                            <ListBox Name="ctlb_types" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                            <Button Name="ctbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Companytype</Button>
+
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -97,6 +113,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,15,7,15" HorizontalAlignment="Right">
                             <Label Name="stl_name">Name:</Label>
@@ -111,7 +128,7 @@
                             <TextBox Name="sttb_submarket2" Width="150" Margin="0,2,0,0"/>
                             <TextBox Name="sttb_submarket3" Width="150" Margin="0,2,0,0"/>
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Left">
+                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">
                             <Label Name="stl_category">Category:</Label>
                             <TextBox Name="sttb_category" Width="150"/>
                             <Label Name="stl_categories">Categories:</Label>
@@ -124,6 +141,13 @@
                             <ListBox Name="stlb_features" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
 
                             <Button Name="stbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Softwaretype</Button>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">
+                            <Label Name="stl_ossupport">Features:</Label>
+                            <ListBox Name="stlb_ossupport" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                            <CheckBox Name="stcb_override" Content="Override" />
+                            <Label Name="stl_unlock">Unlock:</Label>
+                            <TextBox Name="sttb_unlock" Width="150"/>
                         </StackPanel>
                     </Grid>
                 </Grid>

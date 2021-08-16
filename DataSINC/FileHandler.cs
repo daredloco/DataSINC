@@ -344,12 +344,10 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Name' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at name");
 						name = (node as TydString).Value;
 						break;
 					//The OSSupport node (Can be String or List)
 					case "OSSupport":
-						Debug.Info("Is at OSSupport");
 						if ((node as TydString) != null)
 						{
 							ossupport.Add((node as TydString).Value);
@@ -370,7 +368,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Override' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at Override");
 						overwrite = (node as TydString).GetValue<bool>();
 						break;
 					//The Category node (Must be a string!)
@@ -380,7 +377,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Category' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at Category");
 						category = (node as TydString).Value;
 						break;
 					//The Categories node (Is a TydCollection!)
@@ -394,7 +390,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Description' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at Description");
 						description = (node as TydString).Value;
 						break;
 					//The Unlock node (Must be a boolean)
@@ -404,7 +399,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Unlock' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at Unlock");
 						unlock = (node as TydString).GetValue<int>();
 						break;
 					//The Random node (Must be a double)
@@ -414,7 +408,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Random' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at Random");
 						random = Utils.Helpers.StringToDouble((node as TydString).Value);
 						break;
 					//The IdealPrice node (Must be an integer)
@@ -424,7 +417,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'IdealPrice' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at IdealPrice");
 						idealprice = (node as TydString).GetValue<int>();
 						break;
 					//The OptimalDevTime node (Must be an integer)
@@ -434,7 +426,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'OptimalDevTime' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at OptimalDevTime");
 						optimaldevtime = (node as TydString).GetValue<int>();
 						break;
 					//The Popularity node (Must be a double)
@@ -444,7 +435,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Popularity' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at Popularity");
 						popularity = Utils.Helpers.StringToDouble((node as TydString).Value);
 						break;
 					//The Retention node (Must be an integer)
@@ -454,7 +444,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Retention' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at Retention");
 						retention = (node as TydString).GetValue<int>();
 						break;
 					//The Iterative node (Must be a double)
@@ -464,7 +453,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Iterative' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at Iterative");
 						iterative = Utils.Helpers.StringToDouble((node as TydString).Value);
 						break;
 					//The OneClient node (Must be boolean)
@@ -474,7 +462,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'OneClient' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at OneClient");
 						oneclient = (node as TydString).GetValue<bool>();
 						break;
 					//The InHouse node (Must be a boolean)
@@ -484,7 +471,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'InHouse' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at InHouse");
 						inhouse = (node as TydString).GetValue<bool>();
 						break;
 					//The NameGenerator node (Must be a string)
@@ -494,7 +480,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'NameGenerator' isn't a TydString!"));
 							return null;
 						}
-						Debug.Info("Is at NameGenerator");
 						namegen = (node as TydString).Value;
 						break;
 					//The SubmarketNames node (Must be an array of strings)
@@ -545,10 +530,9 @@ namespace DataSINC
 			return softwaretype;
 		}
 
-		public static DataTypes.CompanyType LoadCompanyType(string tyd)
+		public static DataTypes.CompanyType LoadCompanyType(string fname)
 		{
-			//TydDocument doc = new TydDocument(TydFromText.Parse(tyd));
-			return null;
+			return new DataTypes.CompanyType(fname);
 		}
 	}
 }

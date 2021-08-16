@@ -68,6 +68,7 @@
     <Compile Include="FileHandler.cs" />
     <Compile Include="ObservableList.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="TextboxValues.cs" />
     <Compile Include="TreeViewContent.cs" />
     <Compile Include="Utils.cs" />
     <Page Include="AddPopup.xaml">

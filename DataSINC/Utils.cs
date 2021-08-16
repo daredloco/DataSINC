@@ -247,17 +247,17 @@ namespace DataSINC
 			public static TydList ConvertList<T>(List<T> list, string name = "")
 			{
 				TydList tydlist = new TydList(name);
-				foreach(T content in list)
+				foreach (T content in list)
 				{
 					tydlist.AddChildren(new TydString("", content as string));
 				}
 				return tydlist;
 			}
 
-			public static TydTable ConvertTable<T>(Dictionary<string,T> dictionary, string name = "")
+			public static TydTable ConvertTable<T>(Dictionary<string, T> dictionary, string name = "")
 			{
 				TydTable tydtable = new TydTable(name);
-				foreach(KeyValuePair<string,T> kvp in dictionary)
+				foreach (KeyValuePair<string, T> kvp in dictionary)
 				{
 					tydtable.AddChildren(new TydString(kvp.Key, kvp.Value as string));
 				}
@@ -267,7 +267,7 @@ namespace DataSINC
 			public static TydString ConvertString<T>(T value, string name = "")
 			{
 				double doubleval;
-				if(double.TryParse(value as string, out doubleval))
+				if (double.TryParse(value as string, out doubleval))
 				{
 					return new TydString(name, Helpers.DoubleToString(doubleval));
 				}
@@ -285,7 +285,7 @@ namespace DataSINC
 
 			public static double StringToDouble(string str)
 			{
-				if(!IsDouble(str))
+				if (!IsDouble(str))
 				{
 					throw new InvalidCastException("Can't cast the string to a double!");
 				}
@@ -295,21 +295,23 @@ namespace DataSINC
 
 			public static bool IsDouble<T>(T variable)
 			{
-				if(variable.GetType() == typeof(double))
+				if (variable.GetType() == typeof(double))
 				{
 					//Check if variable is of type double
 					return true;
-				}else if(variable.GetType() == typeof(decimal))
+				}
+				else if (variable.GetType() == typeof(decimal))
 				{
 					//Check if variable is of type decimal
 					return true;
-				}else if(variable.GetType() == typeof(float))
+				}
+				else if (variable.GetType() == typeof(float))
 				{
 					//Check if variable is of type float
 					return true;
 				}
 
-				if(variable.GetType() != typeof(string))
+				if (variable.GetType() != typeof(string))
 				{
 					//Check if variable is of type string
 					return false;
@@ -333,5 +335,6 @@ namespace DataSINC
 				return false;
 			}
 		}
+
 	}
 }

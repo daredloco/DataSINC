@@ -137,6 +137,13 @@ namespace DataSINC
 			Directory.CreateDirectory(Path.Combine(rootfolder, "CompanyTypes"));
 			Directory.CreateDirectory(Path.Combine(rootfolder, "NameGenerators"));
 
+			foreach(DataTypes.CompanyType ctype in CompanyTypes)
+			{
+				if (File.Exists(ctype.Location)) File.Delete(ctype.Location);
+				Tyd.TydNode node = Tyd.TydConverter.Serialize("CompanyType", ctype);
+				File.WriteAllText(ctype.Location, node.FullTyd);
+			}
+			//TODO: Add Software Types to the list
 			foreach (DataTypes.NameGenerator ngen in NameGenerators)
 			{
 				if (File.Exists(ngen.Location)) File.Delete(ngen.Location);

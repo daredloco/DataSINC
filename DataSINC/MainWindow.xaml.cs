@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -29,6 +30,7 @@ namespace DataSINC
 		public MainWindow()
 		{
 			InitializeComponent();
+			CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
 			Debug.Info("Open MainWindow...");
 			Settings.Load();
 			menu_about.Click += MenuAboutClick;
@@ -38,11 +40,13 @@ namespace DataSINC
 			menu_exit.Click += ExitApp;
 
 			//Add Update * Button click functionality
+			ctbt_save.Click += SaveCompanyType;
 			stbt_save.Click += SaveSoftwareType;
 			ngbt_save.Click += SaveNameGen;
 			pebt_save.Click += SavePersonality;
 
 			//Add new item button functionality
+			ctbt_new.Click += NewCompanyType;
 			stbt_new.Click += NewSoftwareType;
 			ngbt_new.Click += NewNameGen;
 			pebt_new.Click += NewPersonality;
@@ -78,6 +82,34 @@ namespace DataSINC
 
 			Closing += OnShutdown;
 			KeyDown += OnControlKeys;
+		}
+
+		private void NewCompanyType(object sender, RoutedEventArgs e)
+		{
+			AddPopup popup = new AddPopup(AddPopup.PopupType.CompanyType);
+			if (popup.ShowDialog() == true)
+			{
+				GenerateSoftwareTypesList();
+				IsSaved = false;
+				SetWindowTitle();
+			}
+		}
+
+		private void SaveCompanyType(object sender, RoutedEventArgs e)
+		{
+			DataTypes.CompanyType ct = (DataTypes.CompanyType)lb_companytypes.SelectedItem;
+			ct.Specialization = cttb_spec.Text;
+			ct.peryear = double.Parse(cttb_peryear.Text);
+			ct.Min = uint.Parse(cttb_min.Text);
+			ct.Max = uint.Parse(cttb_max.Text);
+			ct.NameGenerator = cttb_namegen.Text;
+			//TODO: Handle ct.Types
+			int index = Database.Instance.CompanyTypes.FindIndex(x => x.Title == ct.Title);
+			Database.Instance.CompanyTypes[index] = ct;
+			GenerateCompanyTypesList();
+			IsSaved = false;
+			SetWindowTitle();
+			MessageBox.Show("Companytype " + ct.Title + " updated!", "Data updated!", MessageBoxButton.OK, MessageBoxImage.Information);
 		}
 
 		private void SaveSoftwareType(object sender, RoutedEventArgs e)
@@ -284,6 +316,17 @@ namespace DataSINC
 		{
 			if(e.AddedItems.Count < 1) { return; }
 			DataTypes.CompanyType ct = (DataTypes.CompanyType)e.AddedItems[0];
+
+			cttb_spec.Text = ct.Specialization;
+			cttb_peryear.Text = ct.peryear.ToString();
+			cttb_min.Text = ct.Min.ToString();
+			cttb_max.Text = ct.Max.ToString();
+			cttb_namegen.Text = ct.NameGenerator;
+			ctlb_types.Items.Clear();
+			foreach(DataTypes.CompanyTypeTypes ctt in ct.Types)
+			{
+				ctlb_types.Items.Add(ctt.Software + ": " + ctt.Chance);
+			}
 		}
 
 		private void Lb_softwaretypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
