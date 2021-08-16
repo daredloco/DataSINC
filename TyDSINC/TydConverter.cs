@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
 
@@ -13,7 +14,11 @@ namespace Tyd
             }
 
         public static object Deserialize(TydNode node, Type t, bool useEmptyConstructor = false)
+        {
+            if(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator != ".")
             {
+                CultureInfo.CurrentCulture = new CultureInfo("en-US");
+            }
             var str = node as TydString;
             if (t == typeof(string))
                 {
@@ -62,6 +67,10 @@ namespace Tyd
 
         public static TydNode Serialize(string name, object obj)
             {
+            if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator != ".")
+            {
+                CultureInfo.CurrentCulture = new CultureInfo("en-US");
+            }
             if (obj == null)
                 {
                 return new TydString(name, null);
