@@ -379,9 +379,17 @@ namespace DataSINC
 						}
 						category = (node as TydString).Value;
 						break;
-					//The Categories node (Is a TydCollection!)
+					//The Categories node (Is a TydList!)
 					case "Categories":
-						//TODO: Cast the categories
+						if((node as TydList) == null)
+						{
+							Debug.Exception(new InvalidCastException("The node 'Categories' isn't a TydList!"));
+							return null;
+						}
+						foreach(TydNode catnode in node as TydList)
+						{
+							categories.Add(DataTypes.SoftwareTypeCategories.FromNode(catnode));
+						}
 						break;
 					//The Description node (Must be a string!)
 					case "Description":
@@ -484,20 +492,27 @@ namespace DataSINC
 						break;
 					//The SubmarketNames node (Must be an array of strings)
 					case "SubmarketNames":
-						//TODO: Cast the Submarketnames
 						if((node as TydList) == null)
 						{
 							Debug.Exception(new InvalidCastException("The node 'SubmarketNames' isn't a TydList!"));
 							return null;
 						}
-						foreach(TydString item in (node as TydList))
+						foreach(TydString item in node as TydList)
 						{
 							submarketnames.Add(item.Value);
 						}
 						break;
 					//The Features node (Is a TydCollection!)
 					case "Features":
-						//TODO: Cast the features
+						if((node as TydList) == null)
+						{
+							Debug.Exception(new InvalidCastException("The node 'Features' isn't a TydList!"));
+							return null;
+						}
+						foreach(TydNode featnode in node as TydList)
+						{
+							features.Add(DataTypes.SoftwareTypeSpecFeatures.FromNode(featnode));
+						}
 						break;
 					default:
 						Debug.Exception(new Exception("Node " + node.Name + " is unknown and will be ignored! If this shouldn't be the case, open an Issue on Github.") ,false); 

@@ -119,23 +119,37 @@ namespace DataSINC
 			}
 		}
 
+		[Serializable]
 		public class SoftwareTypeCategories
 		{
 			//DATA
-			public string Name { get; set; }
-			public string Description { get; set; }
-			public int Unlock { get; set; }
-			private double popularity;
-			public double Popularity { get => popularity; set { if (value > 1) { popularity = 1; return; } if (value < 0) { popularity = 0; return; } popularity = value; } }
-			public List<int> Submarkets { get; set; }
-			private double timescale;
-			public double TimeScale { get => timescale; set { if (value > 1) { timescale = 1; return; } if (value < 0) { timescale = 0; return; } timescale = value; } }
-			public int Retention { get; set; }
-			public int IdealPrice { get; set; } //IGNORED IF SET IN SOFTWARE TYPE
-			private double iterative;
-			public double Iterative { get => iterative; set { if (value > 1) { iterative = 1; return; } if (value < 0) { iterative = 0; return; } iterative = value; } }
-			public string NameGenerator { get; set; } //OPTIONAL
-			public int LagBehind { get; set; } //OPTIONAL
+			public string Name;
+			public string Description;
+			public int Unlock;
+			private double Popularity;
+			public double popularity { get => Popularity; set { if (value > 1) { Popularity = 1; return; } if (value < 0) { Popularity = 0; return; } Popularity = value; } }
+			public int[] Submarkets;
+			private double TimeScale;
+			public double timeScale { get => TimeScale; set { if (value > 1) { TimeScale = 1; return; } if (value < 0) { TimeScale = 0; return; } TimeScale = value; } }
+			public int Retention;
+			public int IdealPrice; //IGNORED IF SET IN SOFTWARE TYPE
+			private double Iterative;
+			public double iterative { get => Iterative; set { if (value > 1) { Iterative = 1; return; } if (value < 0) { Iterative = 0; return; } Iterative = value; } }
+			public string NameGenerator; //OPTIONAL
+			public int LagBehind; //OPTIONAL
+
+			public SoftwareTypeCategories() { }
+			
+			public static SoftwareTypeCategories FromNode(TydNode node)
+			{
+				SoftwareTypeCategories cat = TydConverter.Deserialize<SoftwareTypeCategories>(node);
+				return cat;
+			}
+
+			public TydNode ToNode()
+			{
+				return TydConverter.Serialize("", this);
+			}
 
 			public TydTable ToTyd()
 			{
@@ -145,7 +159,7 @@ namespace DataSINC
 					Utils.TydHelpers.ConvertString(Unlock, "Unlock"),
 					Utils.TydHelpers.ConvertString(Popularity, "Popularity")
 					);
-				list.AddChildren(Utils.TydHelpers.ConvertList(Submarkets, "Submarkets"));
+				//list.AddChildren(Utils.TydHelpers.ConvertList(Submarkets, "Submarkets"));
 				list.AddChildren(
 					Utils.TydHelpers.ConvertString(TimeScale, "TimeScale"),
 					Utils.TydHelpers.ConvertString(Retention, "Retention"),
@@ -157,43 +171,55 @@ namespace DataSINC
 			}
 		}
 
+		[Serializable]
 		public class SoftwareTypeSpecFeatures
 		{
 			//DATA
-			public string Name { get; set; }
-			public string Spec { get; set; }
-			public string Description { get; set; }
-			public List<string> Dependencies { get; set; }
-			public int Unlock { get; set; }
-			public int DevTime { get; set; }
-			public List<int> Submarkets { get; set; }
-			private double codeart { get; set; }
-			public double CodeArt { get => codeart; set { if (value > 1) { codeart = 1; return; } if (value < 0) { codeart = 0; return; } codeart = value; } }
-			private double server { get; set; }
-			public double Server { get => server; set { if (value > 1) { server = 1; return; } if (value < 0) { server = 0; return; } server = value; } }
-			public bool Optional { get; set; } //OPTIONAL (Will be OFF by default)
-			public List<string> SoftwareCategories { get; set; } //OPTIONAL
-			public List<SoftwareTypeSubFeatures> Features { get; set; }
+			public string Name;
+			public string Spec;
+			public string Description;
+			public string[] Dependencies;
+			public int Unlock;
+			public int DevTime;
+			public int[] Submarkets;
+			private double CodeArt;
+			public double codeart { get => CodeArt; set { if (value > 1) { CodeArt = 1; return; } if (value < 0) { CodeArt = 0; return; } CodeArt = value; } }
+			private double Server;
+			public double server { get => Server; set { if (value > 1) { Server = 1; return; } if (value < 0) { Server = 0; return; } Server = value; } }
+			public bool Optional; //OPTIONAL (Will be OFF by default)
+			public string[] SoftwareCategories; //OPTIONAL
+			//public SoftwareTypeSubFeatures[] Features;
 
-			
+			public SoftwareTypeSpecFeatures() { }
+
+			public static SoftwareTypeSpecFeatures FromNode(TydNode node)
+			{
+				return TydConverter.Deserialize<SoftwareTypeSpecFeatures>(node);
+			}
+
+			public TydNode ToNode()
+			{
+				return TydConverter.Serialize("", this, true);
+			}
 		}
 
+		[Serializable]
 		public class SoftwareTypeSubFeatures
 		{
 			//DATA
-			public string Name { get; set; }
-			public string Description { get; set; }
-			private int level;
-			public int Level { get => level; set { if (value > 1) { level = 1; return; } if (value < 0) { level = 0; return; } level = value; } }
-			public int Unlock { get; set; }
-			public int DevTime { get; set; }
-			public List<int> Submarkets { get; set; }
-			private double codeart { get; set; }
-			public double CodeArt { get => codeart; set { if (value > 1) { codeart = 1; return; } if (value < 0) { codeart = 0; return; } codeart = value; } }
-			private double server { get; set; }
-			public double Server { get => server; set { if (value > 1) { server = 1; return; } if (value < 0) { server = 0; return; } server = value; } }
-			public List<string> SoftwareCategories { get; set; } //OPTIONAL
-			public string Script_EntryPoint { get; set; } //OPTIONAL
+			public string Name;
+			public string Description;
+			private int Level;
+			public int level { get => Level; set { if (value > 1) { Level = 1; return; } if (value < 0) { Level = 0; return; } Level = value; } }
+			public int Unlock;
+			public int DevTime;
+			public int[] Submarkets;
+			private double CodeArt;
+			public double codeart { get => CodeArt; set { if (value > 1) { CodeArt = 1; return; } if (value < 0) { CodeArt = 0; return; } CodeArt = value; } }
+			private double Server;
+			public double server { get => Server; set { if (value > 1) { Server = 1; return; } if (value < 0) { Server = 0; return; } Server = value; } }
+			public string[] SoftwareCategories; //OPTIONAL
+			public string Script_EntryPoint; //OPTIONAL
 		}
 
 		[Serializable]
