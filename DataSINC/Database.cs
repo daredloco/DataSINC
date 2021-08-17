@@ -101,6 +101,10 @@ namespace DataSINC
 				foreach(string fname in Directory.GetFiles(softwarepath))
 				{
 					DataTypes.SoftwareType st = FileHandler.LoadSoftwareType(fname);
+					if(st == null)
+					{
+						continue;
+					}
 					SoftwareTypes.Add(st);
 				}
 				Debug.Info("Done loading Softwaretypes");
