@@ -1,0 +1,18 @@
+﻿<Window x:Class="DataSINC.TypePopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataSINC"
+        mc:Ignorable="d"
+        Title="TypePopup" Height="200" Width="200" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow">
+    <Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Name="l_software">Software:</Label>
+            <ComboBox Name="cb_software" IsEditable="true" />
+            <Label Name="l_chance">Chance:</Label>
+            <TextBox Name="tb_chance" Width="100"/>
+            <Button Name="bt_add" Margin="0,10,0,0">Add Type</Button>
+        </StackPanel>
+    </Grid>
+</Window>
