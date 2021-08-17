@@ -346,12 +346,35 @@ namespace DataSINC
 
 		private void PeNewRelation(object sender, EventArgs args)
 		{
-
+			RelationshipPopup popup = new RelationshipPopup(lb_persos.SelectedItem as DataTypes.Personality);
+			if (popup.ShowDialog() == true)
+			{
+				GeneratePersonalityList();
+				IsSaved = false;
+				SetWindowTitle();
+				pelb_relationships.Items.Clear();
+				foreach (KeyValuePair<string, double> kvp in (lb_persos.SelectedItem as DataTypes.Personality).Relationships)
+				{
+					pelb_relationships.Items.Add(kvp);
+				}
+			}
 		}
 
 		private void PeEditRelation(object sender, EventArgs args)
 		{
-
+			DataTypes.Personality perso = lb_persos.SelectedItem as DataTypes.Personality;
+			RelationshipPopup popup = new RelationshipPopup(perso, perso.Relationships.ElementAt(pelb_relationships.SelectedIndex).Key, perso.Relationships.ElementAt(pelb_relationships.SelectedIndex).Value);
+			if (popup.ShowDialog() == true)
+			{
+				GeneratePersonalityList();
+				IsSaved = false;
+				SetWindowTitle();
+				pelb_relationships.Items.Clear();
+				foreach (KeyValuePair<string, double> kvp in (lb_persos.SelectedItem as DataTypes.Personality).Relationships)
+				{
+					pelb_relationships.Items.Add(kvp);
+				}
+			}
 		}
 
 		private void PeRemoveRelation(object sender, EventArgs args)

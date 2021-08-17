@@ -1,0 +1,18 @@
+﻿<Window x:Class="DataSINC.RelationshipPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataSINC"
+        mc:Ignorable="d"
+        Title="RelationshipPopup" Height="175" Width="250" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Name="l_personality">Personality:</Label>
+            <ComboBox Name="cb_personality"/>
+            <Label Name="l_relation">Relation:</Label>
+            <TextBox Name="tb_relation" Width="150"/>
+            <Button Name="bt_add" Margin="0,10,0,0">Add</Button>
+        </StackPanel> 
+    </Grid>
+</Window>
