@@ -13,6 +13,9 @@ This project is at a very early stage and isn't usable!
 * NameGenerators
 * New/Load/Save functions
 
+#### Not included
+
+* Hardware mods (Do not load hardware mods with the Editor as the hardware parts **WILL** be cut out from the tyd file!)
 ## Usage
 TODO
 
