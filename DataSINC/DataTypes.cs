@@ -114,7 +114,6 @@ namespace DataSINC
 					new TydString("Category", Category),
 					new TydString("Description", Description)
 					);
-
 				TydFile file = TydFile.FromDocument(doc);
 				file.Save(Location);
 			}
@@ -136,6 +135,7 @@ namespace DataSINC
 			private double iterative;
 			public double Iterative { get => iterative; set { if (value > 1) { iterative = 1; return; } if (value < 0) { iterative = 0; return; } iterative = value; } }
 			public string NameGenerator { get; set; } //OPTIONAL
+			public int LagBehind { get; set; } //OPTIONAL
 
 			public TydTable ToTyd()
 			{
@@ -355,6 +355,11 @@ namespace DataSINC
 			{
 				return new TydList("", Key, Value);
 			}
+		}
+
+		public class HardwareCategory
+		{
+
 		}
 	}
 }
