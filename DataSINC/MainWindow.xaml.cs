@@ -34,6 +34,8 @@ namespace DataSINC
 			Debug.Info("Open MainWindow...");
 			Settings.Load();
 			menu_about.Click += MenuAboutClick;
+			menu_help.Click += MenuHelpClick;
+			menu_git.Click += MenuGitClick;
 			menu_new.Click += NewMod;
 			menu_load.Click += LoadMod;
 			menu_save.Click += SaveMod;
@@ -79,9 +81,84 @@ namespace DataSINC
 			pecm_new.Click += PeNewRelation;
 			pecm_edit.Click += PeEditRelation;
 			pecm_remove.Click += PeRemoveRelation;
+			ctcm_new.Click += CtNewType;
+			ctcm_edit.Click += CtEditType;
+			ctcm_remove.Click += CtRemoveType;
 
 			Closing += OnShutdown;
 			KeyDown += OnControlKeys;
+		}
+
+		private void MenuGitClick(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://github.com/daredloco/DataSINC");
+		}
+
+		private void MenuHelpClick(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://softwareinc.coredumping.com/wiki/index.php/Data_Modding");
+		}
+
+		private void CtRemoveType(object sender, RoutedEventArgs e)
+		{
+			if (ctlb_types.SelectedItem == null)
+			{
+				return;
+			}
+			if (MessageBox.Show("Do you really want to remove the Type?", "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+			{
+				DataTypes.CompanyType ct = lb_companytypes.SelectedItem as DataTypes.CompanyType;
+				List<DataTypes.CompanyTypeTypes> typeslist = new List<DataTypes.CompanyTypeTypes>();
+				typeslist.AddRange(ct.Types);
+				int index = typeslist.FindIndex(x => x.Software == (ctlb_types.SelectedItem as string).Split(':')[0]);
+				typeslist.RemoveAt(index);
+				ct.Types = typeslist.ToArray();
+				GenerateCompanyTypesList();
+				IsSaved = false;
+				SetWindowTitle();
+				ctlb_types.Items.Clear();
+				foreach (DataTypes.CompanyTypeTypes ctt in ct.Types)
+				{
+					ctlb_types.Items.Add(ctt.Software + ": " + ctt.Chance);
+				}
+			}
+		}
+
+		private void CtEditType(object sender, RoutedEventArgs e)
+		{
+			if (ctlb_types.SelectedItem == null)
+			{
+				return;
+			}
+			DataTypes.CompanyType ct = lb_companytypes.SelectedItem as DataTypes.CompanyType;
+			TypePopup popup = new TypePopup(ct, ct.Types.First(x => x.Software == (ctlb_types.SelectedItem as string).Split(':')[0]));
+			if (popup.ShowDialog() == true)
+			{
+				GenerateCompanyTypesList();
+				IsSaved = false;
+				SetWindowTitle(); 
+				ctlb_types.Items.Clear();
+				foreach (DataTypes.CompanyTypeTypes ctt in ct.Types)
+				{
+					ctlb_types.Items.Add(ctt.Software + ": " + ctt.Chance);
+				}
+			}
+		}
+
+		private void CtNewType(object sender, RoutedEventArgs e)
+		{
+			TypePopup popup = new TypePopup(lb_companytypes.SelectedItem as DataTypes.CompanyType);
+			if(popup.ShowDialog() == true)
+			{
+				GenerateCompanyTypesList();
+				IsSaved = false;
+				SetWindowTitle();
+				ctlb_types.Items.Clear();
+				foreach (DataTypes.CompanyTypeTypes ctt in (lb_companytypes.SelectedItem as DataTypes.CompanyType).Types)
+				{
+					ctlb_types.Items.Add(ctt.Software + ": " + ctt.Chance);
+				}
+			}
 		}
 
 		private void NewCompanyType(object sender, RoutedEventArgs e)
@@ -103,6 +180,7 @@ namespace DataSINC
 			ct.Min = uint.Parse(cttb_min.Text);
 			ct.Max = uint.Parse(cttb_max.Text);
 			ct.NameGenerator = cttb_namegen.Text;
+
 			//TODO: Handle ct.Types
 			int index = Database.Instance.CompanyTypes.FindIndex(x => x.Title == ct.Title);
 			Database.Instance.CompanyTypes[index] = ct;
@@ -335,19 +413,32 @@ namespace DataSINC
 			DataTypes.SoftwareType st = (DataTypes.SoftwareType)e.AddedItems[0];
 
 			sttb_name.Text = st.Name;
+			stcb_override.IsChecked = st.Override;
 			sttb_category.Text = st.Category;
-			sttb_desc.Text = st.Description;
-			sttb_namegens.Text = st.NameGenerator;
-			sttb_optimaldevtime.Text = st.OptimalDevTime.ToString();
-			sttb_random.Text = st.Random.ToString();
-			sttb_submarket1.Text = st.SubmarketNames[0];
-			sttb_submarket2.Text = st.SubmarketNames[1];
-			sttb_submarket3.Text = st.SubmarketNames[2];
 			stlb_categories.Items.Clear();
-			foreach(DataTypes.SoftwareTypeCategories cat in st.Categories)
+			foreach (DataTypes.SoftwareTypeCategories cat in st.Categories)
 			{
 				stlb_categories.Items.Add(cat.Name);
 			}
+			sttb_desc.Text = st.Description;
+			sttb_unlock.Text = st.Unlock.ToString();
+			sttb_random.Text = st.Random.ToString();
+			sttb_idealprice.Text = st.IdealPrice.ToString();
+			sttb_optimaldevtime.Text = st.OptimalDevTime.ToString();
+			sttb_popularity.Text = st.Popularity.ToString();
+			sttb_retention.Text = st.Retention.ToString();
+			sttb_iterative.Text = st.Iterative.ToString();
+			stlb_ossupport.Items.Clear();
+			foreach(string ossupport in st.OSSupport)
+			{
+				stlb_ossupport.Items.Add(ossupport);
+			}
+			stcb_oneclient.IsChecked = st.OneClient;
+			stcb_inhouse.IsChecked = st.InHouse;
+			sttb_namegens.Text = st.NameGenerator;
+			sttb_submarket1.Text = st.SubmarketNames[0];
+			sttb_submarket2.Text = st.SubmarketNames[1];
+			sttb_submarket3.Text = st.SubmarketNames[2];
 			stlb_features.Items.Clear();
 			foreach(DataTypes.SoftwareTypeSpecFeatures feat in st.Features)
 			{

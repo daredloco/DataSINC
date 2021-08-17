@@ -25,6 +25,8 @@
                 <MenuItem Header="_Options" Name="menu_options"/>
                 <MenuItem Header="_Exit" Name="menu_exit"/>
             </MenuItem>
+            <MenuItem Header="Modding Wiki" Name="menu_help" />
+            <MenuItem Header="Github" Name="menu_git" />
             <MenuItem Header="About" Name="menu_about" />
         </Menu>
 
@@ -72,8 +74,16 @@
                             <Label Name="ctl_namegen">Namegenerator:</Label>
                             <TextBox Name="cttb_namegen" Width="150"/>
                             <Label Name="ctl_types">Types: (Software: Chance)</Label>
-                            <ListBox Name="ctlb_types" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
-                            <Button Name="ctbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Companytype</Button>
+                            <ListBox Name="ctlb_types" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                <ListBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Name="ctcm_new" Header="Add Type"/>
+                                        <MenuItem Name="ctcm_edit" Header="Edit Type"/>
+                                        <MenuItem Name="ctcm_remove" Header="Remove Type"/>
+                                    </ContextMenu>
+                                </ListBox.ContextMenu>
+                            </ListBox>
+                                <Button Name="ctbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Companytype</Button>
 
                         </StackPanel>
                     </Grid>
@@ -119,7 +129,7 @@
                             <Label Name="stl_name">Name:</Label>
                             <TextBox Name="sttb_name" Width="150"/>
                             <Label Name="stl_desc">Description:</Label>
-                            <TextBox Name="sttb_desc" Width="150" Height="93" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                            <TextBox Name="sttb_desc" Width="150" Height="85" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
 
                             <Label Name="stl_random">Random:</Label>
                             <TextBox Name="sttb_random" Width="150"/>
@@ -127,6 +137,8 @@
                             <TextBox Name="sttb_submarket1" Width="150" Margin="0,2,0,0"/>
                             <TextBox Name="sttb_submarket2" Width="150" Margin="0,2,0,0"/>
                             <TextBox Name="sttb_submarket3" Width="150" Margin="0,2,0,0"/>
+                            <Label Name="stl_iterative">Iterative:</Label>
+                            <TextBox Name="sttb_iterative" Width="150"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">
                             <Label Name="stl_category">Category:</Label>
@@ -143,11 +155,19 @@
                             <Button Name="stbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Softwaretype</Button>
                         </StackPanel>
                         <StackPanel Grid.Column="2" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">
-                            <Label Name="stl_ossupport">Features:</Label>
+                            <Label Name="stl_ossupport">OS Support:</Label>
                             <ListBox Name="stlb_ossupport" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
                             <CheckBox Name="stcb_override" Content="Override" />
+                            <CheckBox Name="stcb_oneclient" Content="One Client" />
+                            <CheckBox Name="stcb_inhouse" Content="Inhouse" />
                             <Label Name="stl_unlock">Unlock:</Label>
                             <TextBox Name="sttb_unlock" Width="150"/>
+                            <Label Name="stl_idealprice">Ideal Price:</Label>
+                            <TextBox Name="sttb_idealprice" Width="150"/>
+                            <Label Name="stl_popularity">Popularity:</Label>
+                            <TextBox Name="sttb_popularity" Width="150"/>
+                            <Label Name="stl_retention">Retention:</Label>
+                            <TextBox Name="sttb_retention" Width="150"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
