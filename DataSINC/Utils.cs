@@ -273,6 +273,12 @@ namespace DataSINC
 				}
 				return new TydString(name, value as string);
 			}
+
+			public static bool IsHardwareCategory(TydCollection category)
+			{
+				if(category.GetChild("Hardware") == null) { return false; }
+				return true;
+			}
 		}
 
 		public static class Helpers
