@@ -36,6 +36,11 @@ namespace Tyd
             {
                 var n = node as TydList;
                 var subType = t.GetElementType();
+                if(n == null)
+				{
+                    var ns = node as TydString;
+                    n = new TydList(node.Name, ns);
+				}
                 var result = Array.CreateInstance(subType, n.Count);
                 for (var i = 0; i < n.Count; i++)
                 {
@@ -99,7 +104,7 @@ namespace Tyd
                 {
                     continue;
                 }
-                if (ignorenullvalues)
+                if (ignorenullvalues && info.GetValue(obj) == null)
 				{
                     continue;
 				}
