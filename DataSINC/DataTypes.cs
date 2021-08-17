@@ -39,10 +39,10 @@ namespace DataSINC
 				{
 					Location = System.IO.Path.Combine(Settings.latestmod, "NameGenerators", name + ".txt"),
 					Title = name,
-					Content = "-start(base,base,base,pre)\n" +
-								"-pre(base)\n" +
-								"-base(base2, base2, base2, stop)\n" +
-								"-base2(ext, stop, stop)\n" +
+					Content = "-start(base,base,base,pre)\r\n" +
+								"-pre(base)\r\n" +
+								"-base(base2, base2, base2, stop)\r\n" +
+								"-base2(ext, stop, stop)\r\n" +
 								"-ext(stop)"
 				};
 
