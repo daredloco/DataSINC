@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tyd;
+using Tyd.TydAttributes;
 
 namespace DataSINC
 {
@@ -78,6 +79,8 @@ namespace DataSINC
 			public string NameGenerator { get; set; } //OPTIONAL IF GENERATORS SET IN SUBS
 			public List<string> SubmarketNames { get; set; }
 			public List<SoftwareTypeSpecFeatures> Features { get; set; }
+			public bool Hardware; //OPTIONAL, only added if SoftwareType is Hardware
+			public Manufacturing Manufacturing { get; set; } //OPTIONAL, only added if SoftwareType is Hardware
 
 			public SoftwareType(string fname)
 			{
@@ -137,6 +140,8 @@ namespace DataSINC
 			public double iterative { get => Iterative; set { if (value > 1) { Iterative = 1; return; } if (value < 0) { Iterative = 0; return; } Iterative = value; } }
 			public string NameGenerator; //OPTIONAL
 			public int LagBehind; //OPTIONAL
+			public bool Hardware; //OPTIONAL, only added if SoftwareType is Hardware
+			public Manufacturing Manufacturing; //OPTIONAL, only added if SoftwareType is Hardware
 
 			public SoftwareTypeCategories() { }
 			
@@ -383,9 +388,48 @@ namespace DataSINC
 			}
 		}
 
-		public class HardwareCategory
+		[Serializable]
+		public class Manufacturing
 		{
+			public ManufacturingComponents[] Components;
+			public ManufacturingProcesses[] Processes;
+			public int FinalTime;
 
+			public Manufacturing() { }
+
+			public static Manufacturing FromNode(TydNode node)
+			{
+				Manufacturing manu = TydConverter.Deserialize<Manufacturing>(node);
+				return manu;
+			}
+
+			public TydNode ToNode()
+			{
+				TydNode node = TydConverter.Serialize("Manufacturing", this, true);
+				return node;
+			}
+		}
+
+		[Serializable]
+		public class ManufacturingComponents
+		{
+			public string Name;
+			public string Thumbnail;
+			public string BuiltInThumnail; //OPTIONAL
+			public string DependsOn; //OPTIONAL
+			public int Price;
+			public int Time;
+
+			public ManufacturingComponents() { }
+		}
+
+		[Serializable]
+		public class ManufacturingProcesses
+		{
+			public string[] Inputs;
+			public string Output;
+
+			public ManufacturingProcesses() { }
 		}
 	}
 }
