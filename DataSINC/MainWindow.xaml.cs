@@ -33,6 +33,7 @@ namespace DataSINC
 			CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
 			Debug.Info("Open MainWindow...");
 			Settings.Load();
+			StartupLoading();
 			menu_about.Click += MenuAboutClick;
 			menu_help.Click += MenuHelpClick;
 			menu_git.Click += MenuGitClick;
@@ -96,6 +97,20 @@ namespace DataSINC
 
 			Closing += OnShutdown;
 			KeyDown += OnControlKeys;
+		}
+
+		private void StartupLoading()
+		{
+			if(Settings.latestmod != null && System.IO.Directory.Exists(Settings.latestmod))
+			{
+				Database.Instance = new Database(Settings.latestmod);
+				GenerateLists();
+				SetWindowTitle();
+			}
+			else
+			{
+				NewMod(this, null);
+			}
 		}
 
 		private void StRemoveFeature(object sender, RoutedEventArgs e)
@@ -728,11 +743,11 @@ namespace DataSINC
 		{
 			if(IsSaved)
 			{
-				Title = "Data SINC";
+				Title = "Data SINC \"" + Settings.GetName() + "\"";
 			}
 			else
 			{
-				Title = "Data SINC (unsaved changes)";
+				Title = "Data SINC \"" + Settings.GetName() + "\" (unsaved changes)";
 			}
 		}
 	}

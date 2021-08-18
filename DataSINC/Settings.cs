@@ -11,6 +11,15 @@ namespace DataSINC
 	{
 		public static string latestmod;
 		private static readonly string location = System.IO.Path.Combine(Application.StartupPath, "app.cfg");
+		public static string GetName()
+		{
+			if(string.IsNullOrWhiteSpace(latestmod))
+			{
+				return "";
+			}
+			string[] namearr = latestmod.Split(System.IO.Path.DirectorySeparatorChar);
+			return namearr[namearr.Length - 1];
+		}
 
 		public static void Load()
 		{
