@@ -158,7 +158,15 @@
                             <Label Name="stl_namegens">Namegenerator:</Label>
                             <TextBox Name="sttb_namegens" Width="150"/>
                             <Label Name="stl_features">Features:</Label>
-                            <ListBox Name="stlb_features" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                            <ListBox Name="stlb_features" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                <ListBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Name="stfeatcm_new" Header="Add Feature"/>
+                                        <MenuItem Name="stfeatcm_edit" Header="Edit Feature"/>
+                                        <MenuItem Name="stfeatcm_remove" Header="Remove Feature"/>
+                                    </ContextMenu>
+                                </ListBox.ContextMenu>
+                            </ListBox>
                             <Button Name="stbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Softwaretype</Button>
                         </StackPanel>
                         <StackPanel Grid.Column="2" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">

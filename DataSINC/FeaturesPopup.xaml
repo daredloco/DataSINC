@@ -1,0 +1,69 @@
+﻿<Window x:Class="DataSINC.FeaturesPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataSINC"
+        mc:Ignorable="d"
+        Title="FeaturesPopup" Height="450" Width="400" ResizeMode="NoResize" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+            <Label Name="l_name">Name:</Label>
+            <TextBox Name="tb_name"/>
+            <Label Name="l_spec">Spec:</Label>
+            <TextBox Name="tb_spec"/>
+            <Label Name="l_description">Description:</Label>
+            <TextBox Name="tb_description" Width="150" Height="85" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            <Label Name="l_dependencies">Dependencies:</Label>
+            <ListBox Name="lb_dependencies" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="dependencies_new" Header="Add Dependency"/>
+                        <MenuItem Name="dependencies_remove" Header="Remove Dependency"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+            <Label Name="l_unlock">Unlock:</Label>
+            <TextBox Name="tb_unlock"/>
+            <Label Name="l_devtime">DevTime:</Label>
+            <TextBox Name="tb_devtime"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+
+            <Label Name="l_submarkets">Submarkets:</Label>
+            <TextBox Name="tb_submarket0" Width="150" Margin="0,2,0,0"/>
+            <TextBox Name="tb_submarket1" Width="150" Margin="0,2,0,0"/>
+            <TextBox Name="tb_submarket2" Width="150" Margin="0,2,0,0"/>
+            <Label Name="l_codeart">CodeArt:</Label>
+            <Slider Name="sl_codeart" Minimum="0" Maximum="1" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+            <Label Name="l_server">Server:</Label>
+            <TextBox Name="tb_server"/>
+            <CheckBox Name="cb_optional" Content="Optional" Margin="0,5,0,5"/>
+            <Label Name="l_categories">Software Categories:</Label>
+            <ListBox Name="lb_categories" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="categories_new" Header="Add Category"/>
+                        <MenuItem Name="categories_edit" Header="Edit Category"/>
+                        <MenuItem Name="categories_remove" Header="Remove Category"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+            <Label Name="l_features">Features:</Label>
+            <ListBox Name="lb_features" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="features_new" Header="Add Feature"/>
+                        <MenuItem Name="features_edit" Header="Edit Feature"/>
+                        <MenuItem Name="features_remove" Header="Remove Feature"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+            <Button Name="bt_add" Margin="0,10,0,0">Add</Button>
+        </StackPanel>
+    </Grid>
+</Window>

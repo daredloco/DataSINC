@@ -69,6 +69,9 @@
     <Compile Include="Database.cs" />
     <Compile Include="DataTypes.cs" />
     <Compile Include="Debug.cs" />
+    <Compile Include="FeaturesPopup.xaml.cs">
+      <DependentUpon>FeaturesPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileHandler.cs" />
     <Compile Include="ManufacturingPopup.xaml.cs">
       <DependentUpon>ManufacturingPopup.xaml</DependentUpon>
@@ -89,6 +92,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CategoriesPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FeaturesPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

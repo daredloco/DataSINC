@@ -87,12 +87,57 @@ namespace DataSINC
 			stcatcm_new.Click += StNewCategory;
 			stcatcm_edit.Click += StEditCategory;
 			stcatcm_remove.Click += StRemoveCategory;
+			stfeatcm_new.Click += StNewFeature;
+			stfeatcm_edit.Click += StEditFeature;
+			stfeatcm_remove.Click += StRemoveFeature;
 
 			//Manufatoring Button
 			stbt_manufacturing.Click += ShowManufacturing;
 
 			Closing += OnShutdown;
 			KeyDown += OnControlKeys;
+		}
+
+		private void StRemoveFeature(object sender, RoutedEventArgs e)
+		{
+			if (stlb_features.SelectedItem == null)
+			{
+				return;
+			}
+			DataTypes.SoftwareType st = lb_softwaretypes.SelectedItem as DataTypes.SoftwareType;
+			st.Features.RemoveAll(x => x.Name == stlb_features.SelectedItem.ToString());
+		}
+
+		private void StEditFeature(object sender, RoutedEventArgs e)
+		{
+			if (stlb_features.SelectedItem == null)
+			{
+				return;
+			}
+			DataTypes.SoftwareType st = lb_softwaretypes.SelectedItem as DataTypes.SoftwareType;
+			DataTypes.SoftwareTypeSpecFeatures feat = st.Features.First(x => x.Name == stlb_features.SelectedItem.ToString());
+			FeaturesPopup popup = new FeaturesPopup(feat);
+			if (popup.ShowDialog() == true)
+			{
+				int index = st.Features.FindIndex(x => x.Name == popup.Feature.Name);
+				st.Features[index] = popup.NewFeature;
+				GenerateSoftwareTypesList();
+				IsSaved = false;
+				SetWindowTitle();
+			}
+		}
+
+		private void StNewFeature(object sender, RoutedEventArgs e)
+		{
+			FeaturesPopup popup = new FeaturesPopup(null);
+			if (popup.ShowDialog() == true)
+			{
+				DataTypes.SoftwareType st = lb_softwaretypes.SelectedItem as DataTypes.SoftwareType;
+				st.Features.Add(popup.NewFeature);
+				GenerateSoftwareTypesList();
+				IsSaved = false;
+				SetWindowTitle();
+			}
 		}
 
 		private void StRemoveCategory(object sender, RoutedEventArgs e)
