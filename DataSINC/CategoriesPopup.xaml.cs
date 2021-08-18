@@ -19,11 +19,42 @@ namespace DataSINC
 	/// </summary>
 	public partial class CategoriesPopup : Window
 	{
-		private DataTypes.SoftwareTypeCategories category;
+		public DataTypes.SoftwareTypeCategories Category;
 		public CategoriesPopup(DataTypes.SoftwareTypeCategories cat)
 		{
-			category = cat;
+			Category = cat;
 			InitializeComponent();
+
+			if(cat != null)
+			{
+				LoadCategory();
+			}
+		}
+
+		private void LoadCategory()
+		{
+			tb_name.Text = Category.Name;
+			tb_desc.Text = Category.Description;
+			tb_idealprice.Text = Category.IdealPrice.ToString();
+			tb_iterative.Text = Category.iterative.ToString();
+			tb_lagbehind.Text = Category.LagBehind.ToString();
+			tb_namegen.Text = Category.NameGenerator;
+			tb_popularity.Text = Category.popularity.ToString();
+			if(Category.Submarkets.Length == 3)
+			{
+				tb_submarket0.Text = Category.Submarkets[0].ToString();
+				tb_submarket1.Text = Category.Submarkets[1].ToString();
+				tb_submarket2.Text = Category.Submarkets[2].ToString();
+			}
+			else
+			{
+				tb_submarket0.Text = "0";
+				tb_submarket1.Text = "0";
+				tb_submarket2.Text = "0";
+			}
+			tb_retention.Text = Category.Retention.ToString();
+			tb_timescale.Text = Category.timeScale.ToString();
+			tb_unlock.Text = Category.Unlock.ToString();
 		}
 	}
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataSINC"
         mc:Ignorable="d"
-        Title="CategoriesPopup" Height="350" Width="400" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="CategoriesPopup" Height="400" Width="400" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -15,7 +15,7 @@
             <Label Name="l_name">Name:</Label>
             <TextBox Name="tb_name" Width="150" />
             <Label Name="l_desc">Description:</Label>
-            <TextBox Name="tb_desc" Width="150" />
+            <TextBox Name="tb_desc"  Width="150" Height="85" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
             <Label Name="l_unlock">Unlock:</Label>
             <TextBox Name="tb_unlock" Width="150" />
             <Label Name="l_popularity">Popularity:</Label>
@@ -24,7 +24,6 @@
             <TextBox Name="tb_submarket0" Width="150" Margin="0,2,0,0" />
             <TextBox Name="tb_submarket1" Width="150" Margin="0,2,0,0"  />
             <TextBox Name="tb_submarket2" Width="150"  Margin="0,2,0,0" />
-            <Button Name="bt_manufacturing" Margin="0,5,0,0">Manufacturing</Button>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
@@ -40,6 +39,7 @@
             <TextBox Name="tb_namegen" Width="150" />
             <Label Name="l_lagbehind">Lagbehind:</Label>
             <TextBox Name="tb_lagbehind" Width="150" />
+            <Button Name="bt_manufacturing" Margin="0,5,0,0">Manufacturing</Button>
             <Button Name="bt_add" Margin="0,5,0,0">Add</Button>
         </StackPanel>
     </Grid>
