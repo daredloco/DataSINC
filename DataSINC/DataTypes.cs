@@ -102,7 +102,8 @@ namespace DataSINC
 					Title = name,
 					SubmarketNames = new List<string>() { "0", "0", "0" },
 					Categories = new List<SoftwareTypeCategories>(),
-					Features = new List<SoftwareTypeSpecFeatures>()
+					Features = new List<SoftwareTypeSpecFeatures>(),
+					OSSupport = new List<string>()
 				};
 
 				return st;
