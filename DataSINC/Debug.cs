@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Management;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace DataSINC
 {
@@ -39,6 +40,7 @@ namespace DataSINC
 				else
 				{
 					sw.WriteLine(DateTime.Now + ": [" + type.ToString() + "] " + msg);
+					System.Diagnostics.Debug.WriteLine(msg, "Debug (" + type.ToString() + ")");
 				}
 			}
 		}
