@@ -84,12 +84,50 @@ namespace DataSINC
 			ctcm_new.Click += CtNewType;
 			ctcm_edit.Click += CtEditType;
 			ctcm_remove.Click += CtRemoveType;
+			stcatcm_new.Click += StNewCategory;
+			stcatcm_edit.Click += StEditCategory;
+			stcatcm_remove.Click += StRemoveCategory;
 
 			//Manufatoring Button
 			stbt_manufacturing.Click += ShowManufacturing;
 
 			Closing += OnShutdown;
 			KeyDown += OnControlKeys;
+		}
+
+		private void StRemoveCategory(object sender, RoutedEventArgs e)
+		{
+			if (stlb_categories.SelectedItem == null)
+			{
+				return;
+			}
+			DataTypes.SoftwareType st = lb_softwaretypes.SelectedItem as DataTypes.SoftwareType;
+			st.Categories.RemoveAll(x => x.Name == stlb_categories.SelectedItem.ToString());
+			int index = Database.Instance.SoftwareTypes.FindIndex(x => x.Name == st.Name);
+			Database.Instance.SoftwareTypes[index] = st;
+			GenerateSoftwareTypesList();
+			IsSaved = false;
+			SetWindowTitle();
+		}
+
+		private void StEditCategory(object sender, RoutedEventArgs e)
+		{
+			DataTypes.SoftwareType st = lb_softwaretypes.SelectedItem as DataTypes.SoftwareType;
+			DataTypes.SoftwareTypeCategories cat = st.Categories.First(x => x.Name == stlb_categories.SelectedItem.ToString());
+			CategoriesPopup popup = new CategoriesPopup(cat);
+			if(popup.ShowDialog() == true)
+			{
+
+			}
+		}
+
+		private void StNewCategory(object sender, RoutedEventArgs e)
+		{
+			CategoriesPopup popup = new CategoriesPopup(null);
+			if (popup.ShowDialog() == true)
+			{
+				//popup.Category
+			}
 		}
 
 		private void ShowManufacturing(object sender, RoutedEventArgs e)

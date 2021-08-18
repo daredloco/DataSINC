@@ -144,7 +144,15 @@
                             <Label Name="stl_category">Category:</Label>
                             <TextBox Name="sttb_category" Width="150"/>
                             <Label Name="stl_categories">Categories:</Label>
-                            <ListBox Name="stlb_categories" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                            <ListBox Name="stlb_categories" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                <ListBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Name="stcatcm_new" Header="Add Category"/>
+                                        <MenuItem Name="stcatcm_edit" Header="Edit Category"/>
+                                        <MenuItem Name="stcatcm_remove" Header="Remove Category"/>
+                                    </ContextMenu>
+                                </ListBox.ContextMenu>
+                            </ListBox>
                             <Label Name="stl_optimaldevtime">OptimalDevTime:</Label>
                             <TextBox Name="sttb_optimaldevtime" Width="150"/>
                             <Label Name="stl_namegens">Namegenerator:</Label>
