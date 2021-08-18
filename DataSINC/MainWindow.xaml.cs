@@ -85,8 +85,34 @@ namespace DataSINC
 			ctcm_edit.Click += CtEditType;
 			ctcm_remove.Click += CtRemoveType;
 
+			//Manufatoring Button
+			stbt_manufacturing.Click += ShowManufacturing;
+
 			Closing += OnShutdown;
 			KeyDown += OnControlKeys;
+		}
+
+		private void ShowManufacturing(object sender, RoutedEventArgs e)
+		{
+			DataTypes.SoftwareType st = lb_softwaretypes.SelectedItem as DataTypes.SoftwareType;
+			ManufacturingPopup popup = new ManufacturingPopup(st);
+			if(popup.ShowDialog() == true)
+			{
+				st.Manufacturing = ManufacturingPopup.Result;
+				if(st.Manufacturing == null)
+				{
+					st.Hardware = false;
+				}
+				else
+				{
+					st.Hardware = true;
+				}
+				Database.Instance.SoftwareTypes.First(x => x.Location == st.Location).Manufacturing = st.Manufacturing;
+				Database.Instance.SoftwareTypes.First(x => x.Location == st.Location).Hardware = st.Hardware;
+				GenerateSoftwareTypesList();
+				IsSaved = false;
+				SetWindowTitle();
+			}
 		}
 
 		private void MenuGitClick(object sender, RoutedEventArgs e)

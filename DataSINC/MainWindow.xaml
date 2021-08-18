@@ -151,7 +151,6 @@
                             <TextBox Name="sttb_namegens" Width="150"/>
                             <Label Name="stl_features">Features:</Label>
                             <ListBox Name="stlb_features" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
-
                             <Button Name="stbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Softwaretype</Button>
                         </StackPanel>
                         <StackPanel Grid.Column="2" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">
@@ -168,6 +167,8 @@
                             <TextBox Name="sttb_popularity" Width="150"/>
                             <Label Name="stl_retention">Retention:</Label>
                             <TextBox Name="sttb_retention" Width="150"/>
+                            <Button Name="stbt_manufacturing"  Width="150" Height="30" Margin="0,15,0,0">Manufacturing</Button>
+
                         </StackPanel>
                     </Grid>
                 </Grid>
