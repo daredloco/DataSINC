@@ -312,6 +312,8 @@ namespace DataSINC
 			TydDocument doc = new TydDocument(TydFromText.Parse(tyd));
 			TydCollection root = doc[0] as TydCollection;
 
+			bool isHardware = false;
+
 			//All variables from the SoftwareType datatype
 			string name = "";
 			List<string> ossupport = new List<string>();
@@ -331,15 +333,16 @@ namespace DataSINC
 			string namegen = "";
 			List<string> submarketnames = new List<string>();
 			List<DataTypes.SoftwareTypeSpecFeatures> features = new List<DataTypes.SoftwareTypeSpecFeatures>();
+			DataTypes.Manufacturing manufacturing = null;
 
 			//Read all nodes inside the root
 			foreach (TydNode node in root)
 			{
-				switch(node.Name)
+				switch (node.Name)
 				{
 					//The Name node (Must be a string!)
 					case "Name":
-						if((node as TydString) == null)
+						if ((node as TydString) == null)
 						{
 							Debug.Exception(new InvalidCastException("The node 'Name' isn't a TydString!"));
 							return null;
@@ -351,7 +354,7 @@ namespace DataSINC
 						if ((node as TydString) != null)
 						{
 							ossupport.Add((node as TydString).Value);
-						}else if((node as TydList) != null)
+						} else if ((node as TydList) != null)
 						{
 							ossupport = (node as TydList).GetChildValues().ToList();
 						}
@@ -363,7 +366,7 @@ namespace DataSINC
 						break;
 					//The Override node (Must be boolean)
 					case "Override":
-						if((node as TydString) == null)
+						if ((node as TydString) == null)
 						{
 							Debug.Exception(new InvalidCastException("The node 'Override' isn't a TydString!"));
 							return null;
@@ -372,7 +375,7 @@ namespace DataSINC
 						break;
 					//The Category node (Must be a string!)
 					case "Category":
-						if((node as TydString) == null)
+						if ((node as TydString) == null)
 						{
 							Debug.Exception(new InvalidCastException("The node 'Category' isn't a TydString!"));
 							return null;
@@ -381,19 +384,19 @@ namespace DataSINC
 						break;
 					//The Categories node (Is a TydList!)
 					case "Categories":
-						if((node as TydList) == null)
+						if ((node as TydList) == null)
 						{
 							Debug.Exception(new InvalidCastException("The node 'Categories' isn't a TydList!"));
 							return null;
 						}
-						foreach(TydNode catnode in node as TydList)
+						foreach (TydNode catnode in node as TydList)
 						{
 							categories.Add(DataTypes.SoftwareTypeCategories.FromNode(catnode));
 						}
 						break;
 					//The Description node (Must be a string!)
 					case "Description":
-						if((node as TydString) == null)
+						if ((node as TydString) == null)
 						{
 							Debug.Exception(new InvalidCastException("The node 'Description' isn't a TydString!"));
 							return null;
@@ -402,7 +405,7 @@ namespace DataSINC
 						break;
 					//The Unlock node (Must be a boolean)
 					case "Unlock":
-						if((node as TydString) == null)
+						if ((node as TydString) == null)
 						{
 							Debug.Exception(new InvalidCastException("The node 'Unlock' isn't a TydString!"));
 							return null;
@@ -492,27 +495,52 @@ namespace DataSINC
 						break;
 					//The SubmarketNames node (Must be an array of strings)
 					case "SubmarketNames":
-						if((node as TydList) == null)
+						if ((node as TydList) == null)
 						{
 							Debug.Exception(new InvalidCastException("The node 'SubmarketNames' isn't a TydList!"));
 							return null;
 						}
-						foreach(TydString item in node as TydList)
+						foreach (TydString item in node as TydList)
 						{
 							submarketnames.Add(item.Value);
 						}
 						break;
 					//The Features node (Is a TydCollection!)
 					case "Features":
-						if((node as TydList) == null)
+						if ((node as TydList) == null)
 						{
 							Debug.Exception(new InvalidCastException("The node 'Features' isn't a TydList!"));
 							return null;
 						}
-						foreach(TydNode featnode in node as TydList)
+						foreach (TydNode featnode in node as TydList)
 						{
 							features.Add(DataTypes.SoftwareTypeSpecFeatures.FromNode(featnode));
 						}
+						break;
+					//The Hardware node (Is a TydString and needs to be boolean!)
+					case "Hardware":
+						if ((node as TydString) == null)
+						{
+							Debug.Exception(new InvalidCastException("The node 'Hardware' isn't a TydString!"));
+							return null;
+						}
+						else if (!bool.TryParse((node as TydString).Value, out _))
+						{
+							Debug.Exception(new InvalidCastException("The node 'Hardware' must be a valid boolean!"));
+							return null;
+						}
+						//TODO: Handle the Hardware here, it would be best to load the Manufacturing here as well
+						isHardware = bool.Parse((node as TydString).Value);
+						break;
+					//The Manufacturing node (Needs to be a TydTable!)
+					case "Manufacturing":
+						if((node as TydTable) == null)
+						{
+							Debug.Exception(new InvalidCastException("The node 'Manufacturing' isn't a TydTable!"));
+							return null;
+						}
+						throw new Exception(node.FullTyd);
+						manufacturing = DataTypes.Manufacturing.FromNode(node);
 						break;
 					default:
 						Debug.Exception(new Exception("Node " + node.Name + " is unknown and will be ignored! If this shouldn't be the case, open an Issue on Github.") ,false); 
@@ -539,9 +567,13 @@ namespace DataSINC
 				InHouse = inhouse,
 				NameGenerator = namegen,
 				SubmarketNames = submarketnames,
-				Features = features
+				Features = features,
 			};
-
+			if(isHardware)
+			{
+				softwaretype.Hardware = true;
+				softwaretype.Manufacturing = manufacturing;
+			}
 			return softwaretype;
 		}
 
