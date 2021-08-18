@@ -61,7 +61,7 @@
                         </ListBox>
                         <Button Name="ctbt_new" Grid.Row="1" Margin="0,5,0,5">Add CompanyType</Button>
                     </Grid>
-                    <Grid Grid.Column="1">
+                    <ScrollViewer Grid.Column="1" Name="sv_company" VerticalScrollBarVisibility="Auto">
                         <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,15,7,5" HorizontalAlignment="Center">
                             <Label Name="ctl_spec">Specialization:</Label>
                             <TextBox Name="cttb_spec" Width="150"/>
@@ -83,10 +83,9 @@
                                     </ContextMenu>
                                 </ListBox.ContextMenu>
                             </ListBox>
-                                <Button Name="ctbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Companytype</Button>
-
+                            <Button Name="ctbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Companytype</Button>
                         </StackPanel>
-                    </Grid>
+                    </ScrollViewer>
                 </Grid>
             </TabItem>
             
@@ -119,75 +118,78 @@
                         </ListBox>
                         <Button Name="stbt_new" Grid.Row="1" Margin="0,5,0,5">Add SoftwareType</Button>
                     </Grid>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,15,7,15" HorizontalAlignment="Right">
-                            <Label Name="stl_name">Name:</Label>
-                            <TextBox Name="sttb_name" Width="150"/>
-                            <Label Name="stl_desc">Description:</Label>
-                            <TextBox Name="sttb_desc" Width="150" Height="85" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                    <ScrollViewer Grid.Column="1" Name="sv_software" VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,15,7,15" HorizontalAlignment="Right">
+                                <Label Name="stl_name">Name:</Label>
+                                <TextBox Name="sttb_name" Width="150"/>
+                                <Label Name="stl_desc">Description:</Label>
+                                <TextBox Name="sttb_desc" Width="150" Height="85" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
 
-                            <Label Name="stl_random">Random:</Label>
-                            <TextBox Name="sttb_random" Width="150"/>
-                            <Label Name="stl_submarketnames">SubmarketNames:</Label>
-                            <TextBox Name="sttb_submarket1" Width="150" Margin="0,2,0,0"/>
-                            <TextBox Name="sttb_submarket2" Width="150" Margin="0,2,0,0"/>
-                            <TextBox Name="sttb_submarket3" Width="150" Margin="0,2,0,0"/>
-                            <Label Name="stl_iterative">Iterative:</Label>
-                            <TextBox Name="sttb_iterative" Width="150"/>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">
-                            <Label Name="stl_category">Category:</Label>
-                            <TextBox Name="sttb_category" Width="150"/>
-                            <Label Name="stl_categories">Categories:</Label>
-                            <ListBox Name="stlb_categories" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                                <ListBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Name="stcatcm_new" Header="Add Category"/>
-                                        <MenuItem Name="stcatcm_edit" Header="Edit Category"/>
-                                        <MenuItem Name="stcatcm_remove" Header="Remove Category"/>
-                                    </ContextMenu>
-                                </ListBox.ContextMenu>
-                            </ListBox>
-                            <Label Name="stl_optimaldevtime">OptimalDevTime:</Label>
-                            <TextBox Name="sttb_optimaldevtime" Width="150"/>
-                            <Label Name="stl_namegens">Namegenerator:</Label>
-                            <TextBox Name="sttb_namegens" Width="150"/>
-                            <Label Name="stl_features">Features:</Label>
-                            <ListBox Name="stlb_features" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                                <ListBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Name="stfeatcm_new" Header="Add Feature"/>
-                                        <MenuItem Name="stfeatcm_edit" Header="Edit Feature"/>
-                                        <MenuItem Name="stfeatcm_remove" Header="Remove Feature"/>
-                                    </ContextMenu>
-                                </ListBox.ContextMenu>
-                            </ListBox>
-                            <Button Name="stbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Softwaretype</Button>
-                        </StackPanel>
-                        <StackPanel Grid.Column="2" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">
-                            <Label Name="stl_ossupport">OS Support:</Label>
-                            <ListBox Name="stlb_ossupport" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
-                            <CheckBox Name="stcb_override" Content="Override" />
-                            <CheckBox Name="stcb_oneclient" Content="One Client" />
-                            <CheckBox Name="stcb_inhouse" Content="Inhouse" />
-                            <Label Name="stl_unlock">Unlock:</Label>
-                            <TextBox Name="sttb_unlock" Width="150"/>
-                            <Label Name="stl_idealprice">Ideal Price:</Label>
-                            <TextBox Name="sttb_idealprice" Width="150"/>
-                            <Label Name="stl_popularity">Popularity:</Label>
-                            <TextBox Name="sttb_popularity" Width="150"/>
-                            <Label Name="stl_retention">Retention:</Label>
-                            <TextBox Name="sttb_retention" Width="150"/>
-                            <Button Name="stbt_manufacturing"  Width="150" Height="30" Margin="0,15,0,0" IsEnabled="False">Manufacturing</Button>
+                                <Label Name="stl_random">Random:</Label>
+                                <TextBox Name="sttb_random" Width="150"/>
+                                <Label Name="stl_submarketnames">SubmarketNames:</Label>
+                                <TextBox Name="sttb_submarket1" Width="150" Margin="0,2,0,0"/>
+                                <TextBox Name="sttb_submarket2" Width="150" Margin="0,2,0,0"/>
+                                <TextBox Name="sttb_submarket3" Width="150" Margin="0,2,0,0"/>
+                                <Label Name="stl_iterative">Iterative:</Label>
+                                <TextBox Name="sttb_iterative" Width="150"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">
+                                <Label Name="stl_category">Category:</Label>
+                                <TextBox Name="sttb_category" Width="150"/>
+                                <Label Name="stl_categories">Categories:</Label>
+                                <ListBox Name="stlb_categories" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                    <ListBox.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Name="stcatcm_new" Header="Add Category"/>
+                                            <MenuItem Name="stcatcm_edit" Header="Edit Category"/>
+                                            <MenuItem Name="stcatcm_remove" Header="Remove Category"/>
+                                        </ContextMenu>
+                                    </ListBox.ContextMenu>
+                                </ListBox>
+                                <Label Name="stl_optimaldevtime">OptimalDevTime:</Label>
+                                <TextBox Name="sttb_optimaldevtime" Width="150"/>
+                                <Label Name="stl_namegens">Namegenerator:</Label>
+                                <TextBox Name="sttb_namegens" Width="150"/>
+                                <Label Name="stl_features">Features:</Label>
+                                <ListBox Name="stlb_features" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                    <ListBox.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Name="stfeatcm_new" Header="Add Feature"/>
+                                            <MenuItem Name="stfeatcm_edit" Header="Edit Feature"/>
+                                            <MenuItem Name="stfeatcm_remove" Header="Remove Feature"/>
+                                        </ContextMenu>
+                                    </ListBox.ContextMenu>
+                                </ListBox>
+                                <Button Name="stbt_save"  Width="150" Height="30" Margin="0,15,0,0">Update Softwaretype</Button>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Vertical" Margin="7,15,0,15" HorizontalAlignment="Center">
+                                <Label Name="stl_ossupport">OS Support:</Label>
+                                <ListBox Name="stlb_ossupport" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                                <CheckBox Name="stcb_override" Content="Override" />
+                                <CheckBox Name="stcb_oneclient" Content="One Client" />
+                                <CheckBox Name="stcb_inhouse" Content="Inhouse" />
+                                <Label Name="stl_unlock">Unlock:</Label>
+                                <TextBox Name="sttb_unlock" Width="150"/>
+                                <Label Name="stl_idealprice">Ideal Price:</Label>
+                                <TextBox Name="sttb_idealprice" Width="150"/>
+                                <Label Name="stl_popularity">Popularity:</Label>
+                                <TextBox Name="sttb_popularity" Width="150"/>
+                                <Label Name="stl_retention">Retention:</Label>
+                                <TextBox Name="sttb_retention" Width="150"/>
+                                <Button Name="stbt_manufacturing"  Width="150" Height="30" Margin="0,15,0,0" IsEnabled="False">Manufacturing</Button>
 
-                        </StackPanel>
+                            </StackPanel>
+                        </Grid>
+
+                    </ScrollViewer>
                     </Grid>
-                </Grid>
             </TabItem>
             
             <TabItem Header="Namegenerators" Name="tab_namegens">
@@ -197,7 +199,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="1">
+                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
 
                         <StackPanel Orientation="Vertical" Margin="0,15,0,15" HorizontalAlignment="Center">
                             
@@ -205,13 +207,13 @@
                                 <TextBox Name="ngtb_title" Width="150"/>
                             
                             
-                                <Label Name="ngl_start" Height="25" VerticalAlignment="Top" HorizontalAlignment="Center">Content:</Label>
+                                <Label Name="ngl_content" Height="25" VerticalAlignment="Top" HorizontalAlignment="Center">Content:</Label>
                                 <TextBox Name="ngtb_content" Height="175" Width="250" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
                             
                                 <Button Name="ngbt_save" Width="250" Height="30" Margin="0,15,0,0">Update Namegenerator</Button>
                             
                         </StackPanel>
-                    </Grid>
+                    </ScrollViewer>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
@@ -244,7 +246,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="1">
+                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Label Name="pel_name">Name:</Label>
                             <TextBox Name="petb_name" />
@@ -266,7 +268,7 @@
                             </ListBox>
                             <Button Name="pebt_save" Width="250" Height="35" Margin="0,5,0,0">Update Personality</Button>
                         </StackPanel>
-                    </Grid>
+                    </ScrollViewer>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>

@@ -539,7 +539,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Manufacturing' isn't a TydTable!"));
 							return null;
 						}
-						throw new Exception(node.FullTyd);
 						manufacturing = DataTypes.Manufacturing.FromNode(node);
 						break;
 					default:
