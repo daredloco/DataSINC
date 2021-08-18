@@ -13,7 +13,7 @@ namespace DataSINC
 		private static readonly string location = System.IO.Path.Combine(Application.StartupPath, "app.cfg");
 		public static string GetName()
 		{
-			if(string.IsNullOrWhiteSpace(latestmod))
+			if(string.IsNullOrWhiteSpace(latestmod) || latestmod == Application.StartupPath)
 			{
 				return "";
 			}
