@@ -19,7 +19,11 @@ namespace DataSINC
 	/// </summary>
 	public partial class CategoriesPopup : Window
 	{
+		//TODO: Implement hardware
+
 		public DataTypes.SoftwareTypeCategories Category;
+		public DataTypes.SoftwareTypeCategories NewCategory;
+
 		public CategoriesPopup(DataTypes.SoftwareTypeCategories cat)
 		{
 			Category = cat;
@@ -29,6 +33,75 @@ namespace DataSINC
 			{
 				LoadCategory();
 			}
+
+			bt_add.Click += UpdateCategory;
+		}
+
+		private void UpdateCategory(object sender, RoutedEventArgs e)
+		{
+			//TODO: Checks if all values are correct and filled (where necessary)
+			if(string.IsNullOrWhiteSpace(tb_name.Text))
+			{
+				MessageBox.Show("Name is a mandatory field!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			if(!int.TryParse(tb_idealprice.Text, out _))
+			{
+				MessageBox.Show("IdealPrice needs to be a valid integer!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			if(!double.TryParse(tb_iterative.Text, out _))
+			{
+				MessageBox.Show("Iterative needs to be a valid double!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			if(!int.TryParse(tb_lagbehind.Text, out _))
+			{
+				MessageBox.Show("LagBehind needs to be a valid integer!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			if(!double.TryParse(tb_popularity.Text, out _))
+			{
+				MessageBox.Show("Populairty needs to be a valid double!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			if(!int.TryParse(tb_retention.Text, out _))
+			{
+				MessageBox.Show("Retention needs to be a valid integer!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			if(!int.TryParse(tb_submarket0.Text, out _) || !int.TryParse(tb_submarket1.Text, out _) || !int.TryParse(tb_submarket2.Text, out _))
+			{
+				MessageBox.Show("Submarkets need to be valid integers!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			if(!double.TryParse(tb_timescale.Text, out _))
+			{
+				MessageBox.Show("TimeScale needs to be a valid double!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			if(!int.TryParse(tb_unlock.Text, out _))
+			{
+				MessageBox.Show("Unlock needs to be a valid integer!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+
+			NewCategory = new DataTypes.SoftwareTypeCategories()
+			{
+				Name = tb_name.Text,
+				Description = tb_desc.Text,
+				IdealPrice = int.Parse(tb_idealprice.Text),
+				iterative = double.Parse(tb_iterative.Text),
+				LagBehind = int.Parse(tb_lagbehind.Text),
+				NameGenerator = tb_namegen.Text,
+				popularity = double.Parse(tb_popularity.Text),
+				Retention = int.Parse(tb_retention.Text),
+				Submarkets = new int[3] { int.Parse(tb_submarket0.Text), int.Parse(tb_submarket1.Text), int.Parse(tb_submarket2.Text) },
+				timeScale = double.Parse(tb_timescale.Text),
+				Unlock = int.Parse(tb_unlock.Text)
+			};
+			DialogResult = true;
+			Close();
 		}
 
 		private void LoadCategory()

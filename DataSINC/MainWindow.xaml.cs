@@ -117,7 +117,11 @@ namespace DataSINC
 			CategoriesPopup popup = new CategoriesPopup(cat);
 			if(popup.ShowDialog() == true)
 			{
-
+				int index = st.Categories.FindIndex(x => x.Name == popup.Category.Name);
+				st.Categories[index] = popup.NewCategory;
+				GenerateSoftwareTypesList();
+				IsSaved = false;
+				SetWindowTitle();
 			}
 		}
 
@@ -126,7 +130,11 @@ namespace DataSINC
 			CategoriesPopup popup = new CategoriesPopup(null);
 			if (popup.ShowDialog() == true)
 			{
-				//popup.Category
+				DataTypes.SoftwareType st = lb_softwaretypes.SelectedItem as DataTypes.SoftwareType;
+				st.Categories.Add(popup.NewCategory);
+				GenerateSoftwareTypesList();
+				IsSaved = false;
+				SetWindowTitle();
 			}
 		}
 
@@ -230,7 +238,7 @@ namespace DataSINC
 			AddPopup popup = new AddPopup(AddPopup.PopupType.CompanyType);
 			if (popup.ShowDialog() == true)
 			{
-				GenerateSoftwareTypesList();
+				GenerateCompanyTypesList();
 				IsSaved = false;
 				SetWindowTitle();
 			}
