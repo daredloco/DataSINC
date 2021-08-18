@@ -31,6 +31,7 @@ namespace DataSINC
 		{
 			InitializeComponent();
 			CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+			Debug.SetExceptionLogger();
 			Debug.Info("Open MainWindow...");
 			Settings.Load();
 			StartupLoading();

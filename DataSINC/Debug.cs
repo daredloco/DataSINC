@@ -5,6 +5,7 @@ using System.IO;
 using System.Management;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 
 namespace DataSINC
 {
@@ -20,6 +21,22 @@ namespace DataSINC
 			Warning,
 			Exception,
 			Error
+		}
+
+		public static void SetExceptionLogger()
+		{
+			AppDomain.CurrentDomain.FirstChanceException += FirstChanceExceptionLogger;
+			AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionLogger;
+		}
+
+		private static void UnhandledExceptionLogger(object sender, UnhandledExceptionEventArgs e)
+		{
+			Exception(e.ExceptionObject as Exception, false);
+		}
+
+		private static void FirstChanceExceptionLogger(object sender, FirstChanceExceptionEventArgs e)
+		{
+			Exception(e.Exception, false);
 		}
 
 		private static void Log(string msg, LogType type = LogType.None)
