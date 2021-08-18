@@ -101,15 +101,11 @@ namespace DataSINC
 
 		private void StartupLoading()
 		{
-			if(Settings.latestmod != null && System.IO.Directory.Exists(Settings.latestmod))
+			if(Settings.latestmod != null && System.IO.Directory.Exists(Settings.latestmod) && Settings.latestmod != System.Windows.Forms.Application.StartupPath)
 			{
 				Database.Instance = new Database(Settings.latestmod);
 				GenerateLists();
 				SetWindowTitle();
-			}
-			else
-			{
-				NewMod(this, null);
 			}
 		}
 
