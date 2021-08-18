@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Tyd;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace DataSINC
 {
@@ -342,5 +344,47 @@ namespace DataSINC
 			}
 		}
 
+		public static class ImageManipulation
+		{
+			/// <summary>
+			/// Converts the Image, changes its size and saves it at a new location as PNG file
+			/// </summary>
+			/// <param name="fname">The location of the file to convert</param>
+			/// <param name="destination">The directory where the file should be saved</param>
+			/// <param name="width">The desired width of the image</param>
+			/// <param name="height">The desired height of the image</param>
+			/// <returns>True if the file could be created, false if not (Check errorlog!)</returns>
+			public static bool ConvertSizeCopy(string fname, string destination, int width = 128, int height = 128)
+			{
+				try
+				{
+					byte[] bytearr = File.ReadAllBytes(fname);
+					byte[] convertedarr = ResizeAndConvert(bytearr, width, height);
+					Directory.CreateDirectory(destination);
+					FileInfo fi = new FileInfo(fname);
+					string destpath = Path.Combine(destination, fi.Name.Replace(fi.Extension, "") + ".png");
+					File.WriteAllBytes(destpath, convertedarr);
+					Debug.Info("Image \"" + fname + "\" converted to PNG with dimensions " + height + "x" + width + " and saved to \"" + destination + "\"");
+				}
+				catch(Exception ex)
+				{
+					Debug.Exception(ex, false);
+					return false;
+				}
+				return true;
+			}
+
+			public static byte[] ResizeAndConvert(byte[] imagebytes, int width = 128, int height = 128)
+			{
+				using (var inStream = new MemoryStream(imagebytes))
+				using (var outStream = new MemoryStream())
+				{
+					var imageStream = System.Drawing.Image.FromStream(inStream);
+					var resizedimage = imageStream.GetThumbnailImage(width, height, null, IntPtr.Zero);
+					resizedimage.Save(outStream, ImageFormat.Png);
+					return outStream.ToArray();
+				}
+			}
+		}
 	}
 }
