@@ -188,7 +188,7 @@ namespace DataSINC
 			public double server { get => Server; set { if (value > 1) { Server = 1; return; } if (value < 0) { Server = 0; return; } Server = value; } }
 			public bool Optional; //OPTIONAL (Will be OFF by default)
 			public string[] SoftwareCategories; //OPTIONAL
-			//public SoftwareTypeSubFeatures[] Features;
+			public SoftwareTypeSubFeatures[] Features;
 
 			public SoftwareTypeSpecFeatures() { }
 
