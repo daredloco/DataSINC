@@ -49,6 +49,15 @@ namespace Tyd
                 return result;
             }
             var members = FormatterServices.GetSerializableMembers(t);
+            System.Collections.Generic.List<MemberInfo> tmpmembers = new System.Collections.Generic.List<MemberInfo>();
+            foreach (var member in members)
+            {
+                if (!Attribute.IsDefined(member, typeof(TydAttributes.TydIgnore)))
+                {
+                    tmpmembers.Add(member);
+                }
+            }
+            members = tmpmembers.ToArray();
             var objects = new object[members.Length];
             var res = useEmptyConstructor ? Activator.CreateInstance(t) : FormatterServices.GetUninitializedObject(t);
             var table = node as TydTable;
@@ -56,6 +65,10 @@ namespace Tyd
             {
                 var info = members[i] as FieldInfo;
                 if (Attribute.IsDefined(info, typeof(NonSerializedAttribute)))
+                {
+                    continue;
+                }
+                if (Attribute.IsDefined(info, typeof(TydAttributes.TydIgnore)))
                 {
                     continue;
                 }
@@ -104,11 +117,14 @@ namespace Tyd
                 {
                     continue;
                 }
+                if (Attribute.IsDefined(info, typeof(TydAttributes.TydIgnore)))
+                {
+                    continue;
+                }
                 if (ignorenullvalues && info.GetValue(obj) == null)
 				{
                     continue;
-				}
-
+                }
                 res.AddChild(Serialize(info.Name, info.GetValue(obj)));
             }
             return res;
