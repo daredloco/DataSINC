@@ -50,7 +50,7 @@ namespace DataSINC
 			if (File.Exists(path)) { File.Delete(path); }
 
 			//GET OS INFORMATIONS
-			Log("System Informations:");
+			Log("System Informations");
 
 			ManagementObjectSearcher mos = new ManagementObjectSearcher("select * from Win32_OperatingSystem");
 			foreach (ManagementObject managementObject in mos.Get())
