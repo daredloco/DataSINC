@@ -30,5 +30,5 @@ TODO
 
 DataSINC is released under the MIT License
 
-TyDSharp is forked from https://github.com/khornel/TyDSharp which was released under the MIT License. The version used in the Editor is a **customized** version and is not the same as in the fork!
-Changes were mostly made in the TydConverter.cs file and the Editor would crash if you use TydSharp for it!
+TyDSharp is forked from https://github.com/khornel/TyDSharp which was released under the MIT License. The version used in the Editor is a **customized** version and is not the same as in the fork! 
+To see the changes or if you found bugs within that particular fork you can go over to its repository [here](https://github.com/daredloco/TyDSharp)
