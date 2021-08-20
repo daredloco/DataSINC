@@ -14,5 +14,24 @@ namespace DataSINC
 	/// </summary>
 	public partial class App : Application
 	{
+		protected override void OnStartup(StartupEventArgs e)
+		{
+#if DEBUG
+			Debug.Active = true;
+#else
+			if(e.Args.Contains("-debug"))
+			{
+				Debug.Active = true;
+			}
+			else
+			{
+				Debug.Active = false;
+			}
+#endif
+
+			CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+			Debug.SetExceptionLogger();
+			base.OnStartup(e);
+		}
 	}
 }
