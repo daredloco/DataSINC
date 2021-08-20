@@ -26,13 +26,13 @@ namespace DataSINC
 		{
 			InitializeComponent();
 			Feature = feat;
-			if(feat != null)
+			sl_codeart.ValueChanged += CodeArtChanged;
+			if (feat != null)
 			{
 				LoadFeature();
 			}
 
 			bt_add.Click += AddClicked;
-			sl_codeart.ValueChanged += CodeArtChanged;
 		}
 
 		private void LoadFeature()
