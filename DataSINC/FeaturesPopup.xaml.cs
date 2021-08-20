@@ -32,6 +32,7 @@ namespace DataSINC
 			}
 
 			bt_add.Click += AddClicked;
+			sl_codeart.ValueChanged += CodeArtChanged;
 		}
 
 		private void LoadFeature()
@@ -79,7 +80,6 @@ namespace DataSINC
 				}
 			}
 			cb_optional.IsChecked = Feature.Optional;
-			sl_codeart.ValueChanged += CodeArtChanged;
 			sl_codeart.Value = Feature.codeart;
 		}
 
