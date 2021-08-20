@@ -37,7 +37,7 @@ namespace DataSINC
 				tb_name.Text = subfeature.Name;
 				tb_description.Text = subfeature.Description;
 				tb_devtime.Text = subfeature.DevTime.ToString();
-				tb_sever.Text = subfeature.server.ToString();
+				tb_sever.Text = subfeature.Server.ToString();
 				tb_unlock.Text = subfeature.Unlock.ToString();
 				if(subfeature.Submarkets.Length == 3)
 				{
@@ -46,7 +46,7 @@ namespace DataSINC
 					tb_submarket2.Text = subfeature.Submarkets[2].ToString();
 				}
 				sl_level.Value = subfeature.level;
-				sl_codeart.Value = subfeature.level;
+				sl_codeart.Value = subfeature.codeart;
 				lb_categories.Items.Clear();
 				if(subfeature.SoftwareCategories != null)
 				{
@@ -85,34 +85,41 @@ namespace DataSINC
 
 		private void AddClicked(object sender, RoutedEventArgs e)
 		{
+			//TODO: Make a check if all values have the right format
 			NewSubFeature = new DataTypes.SoftwareTypeSubFeatures()
 			{
 				Name = tb_name.Text,
 				Description = tb_description.Text,
 				codeart = sl_codeart.Value,
-				level = int.Parse(sl_codeart.Value.ToString()),
+				level = (int)sl_level.Value,
 				DevTime = int.Parse(tb_devtime.Text),
 				Script_EndOfDay = scripts[0],
 				Script_AfterSales = scripts[1],
 				Script_OnRelease = scripts[2],
 				Script_NewCopies = scripts[3],
 				Script_WorkItemChange = scripts[4],
-				server = double.Parse(tb_sever.Text),
+				Server = double.Parse(tb_sever.Text),
 				Unlock = int.Parse(tb_unlock.Text)
 			};
-			foreach(string str in lb_categories.Items)
+			NewSubFeature.SoftwareCategories = new string[lb_categories.Items.Count];
+			lb_categories.Items.CopyTo(NewSubFeature.SoftwareCategories, 0);
+			if(sl_level.Value == 3)
 			{
-				NewSubFeature.SoftwareCategories.Append(str);
-			}
-			if(string.IsNullOrWhiteSpace(tb_submarket0.Text) && string.IsNullOrWhiteSpace(tb_submarket1.Text) && string.IsNullOrWhiteSpace(tb_submarket2.Text))
-			{
-				NewSubFeature.Submarkets.Append(0);
+				NewSubFeature.Submarkets = new int[1] { 0 };
 			}
 			else
 			{
-				NewSubFeature.Submarkets.Append(int.Parse(tb_submarket0.Text));
-				NewSubFeature.Submarkets.Append(int.Parse(tb_submarket1.Text));
-				NewSubFeature.Submarkets.Append(int.Parse(tb_submarket2.Text));
+				if (!int.TryParse(tb_submarket0.Text, out _) || !int.TryParse(tb_submarket1.Text, out _) || !int.TryParse(tb_submarket2.Text, out _))
+				{
+					MessageBox.Show("Submarkets need to be valid integer values (Will be ignored for level 3 features)", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+					return;
+				}
+				NewSubFeature.Submarkets = new int[3]
+				{
+					int.Parse(tb_submarket0.Text),
+					int.Parse(tb_submarket1.Text),
+					int.Parse(tb_submarket2.Text)
+				};
 			}
 
 			DialogResult = true;
