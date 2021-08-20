@@ -225,7 +225,11 @@ namespace DataSINC
 			private double Server;
 			public double server { get => Server; set { if (value > 1) { Server = 1; return; } if (value < 0) { Server = 0; return; } Server = value; } }
 			public string[] SoftwareCategories; //OPTIONAL
-			public string Script_EntryPoint; //OPTIONAL
+			public string Script_EndOfDay; //OPTIONAL
+			public string Script_AfterSales; //OPTIONAL
+			public string Script_OnRelease; //OPTIONAL
+			public string Script_NewCopies; //OPTIONAL
+			public string Script_WorkItemChange; //OPTIONAL
 		}
 
 		[Serializable]
