@@ -59,7 +59,6 @@ namespace DataSINC
 			SubFeaturePopup popup = new SubFeaturePopup(subfeature);
 			if(popup.ShowDialog() == true)
 			{
-				//TODO: Add edited Subfeature to the Feature
 				int index = subfeatures.IndexOf(subfeature);
 				subfeatures[index] = popup.NewSubFeature;
 				lb_features.Items[lb_features.SelectedIndex] = popup.NewSubFeature.Name;
@@ -118,7 +117,7 @@ namespace DataSINC
 			tb_description.Text = Feature.Description;
 			tb_spec.Text = Feature.Spec;
 			tb_devtime.Text = Feature.DevTime.ToString();
-			tb_server.Text = Feature.server.ToString();
+			tb_server.Text = Feature.Server.ToString();
 			tb_unlock.Text = Feature.Unlock.ToString();
 			if(Feature.Submarkets.Length == 3)
 			{
@@ -169,8 +168,35 @@ namespace DataSINC
 
 		private void AddClicked(object sender, RoutedEventArgs e)
 		{
-			//TODO: Add function to add/edit feature (Set NewFeature)
+			//TODO: Add a check if all values are valid
+			NewFeature = new DataTypes.SoftwareTypeSpecFeatures()
+			{
+				Name = tb_name.Text,
+				Description = tb_description.Text,
+				DevTime = int.Parse(tb_devtime.Text),
+				Optional = cb_optional.IsChecked.HasValue ? cb_optional.IsChecked.Value : false,
+				Spec = tb_spec.Text,
+				Unlock = int.Parse(tb_unlock.Text),
+				codeart = sl_codeart.Value,
+				Server = double.Parse(tb_server.Text)
+			};
+
+			NewFeature.Submarkets = new int[3] {
+				int.Parse(tb_submarket0.Text),
+				int.Parse(tb_submarket1.Text),
+				int.Parse(tb_submarket2.Text)
+			};
+			foreach(string sc in lb_categories.Items)
+			{
+				NewFeature.SoftwareCategories.Append(sc);
+			}
+			foreach (string sc in lb_dependencies.Items)
+			{
+				NewFeature.Dependencies.Append(sc);
+			}
+			NewFeature.Features = subfeatures.ToArray();
 			DialogResult = true;
+			Close();
 		}
 	}
 }
