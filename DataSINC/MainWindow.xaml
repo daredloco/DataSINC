@@ -89,7 +89,7 @@
                 </Grid>
             </TabItem>
             
-            <TabItem Header="Software Types" Name="tab_stypes" IsEnabled="False">
+            <TabItem Header="Software Types" Name="tab_stypes">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.25*"></ColumnDefinition>
