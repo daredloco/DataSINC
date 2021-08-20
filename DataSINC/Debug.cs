@@ -11,8 +11,9 @@ namespace DataSINC
 {
 	public static class Debug
 	{
+		public static bool Active = true;
 		private static bool isfirst = true;
-		static string path = Path.Combine(Application.StartupPath, "log.txt");
+		private static readonly string path = Path.Combine(Application.StartupPath, "log.txt");
 
 		public enum LogType
 		{
@@ -56,6 +57,10 @@ namespace DataSINC
 				}
 				else
 				{
+					if(!Active && type != LogType.Exception)
+					{
+						return;
+					}
 					sw.WriteLine(DateTime.Now + ": [" + type.ToString() + "] " + msg);
 					System.Diagnostics.Debug.WriteLine(msg, "Debug (" + type.ToString() + ")");
 				}
