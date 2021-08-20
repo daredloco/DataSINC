@@ -91,6 +91,7 @@ namespace Tyd
             }
             if (obj == null)
             {
+				if (ignorenullvalues) { return null; }
                 return new TydString(name, null);
             }
             var t = obj.GetType();
@@ -104,7 +105,7 @@ namespace Tyd
                 var arr = obj as Array;
                 for (var i = 0; i < arr.Length; i++)
                 {
-                    result.AddChild(Serialize(null, arr.GetValue(i)));
+                    result.AddChild(Serialize(null, arr.GetValue(i), ignorenullvalues));
                 }
                 return result;
             }
@@ -121,12 +122,12 @@ namespace Tyd
                 {
                     continue;
                 }
-                if (ignorenullvalues && info.GetValue(obj) == null)
+                if (ignorenullvalues && (info.GetValue(obj) == null || members[i] == null))
 				{
                     continue;
                 }
                 string tydname = Attribute.IsDefined(info, typeof(TydAttributes.TydName)) ? ((TydAttributes.TydName)Attribute.GetCustomAttribute(info, typeof(TydAttributes.TydName))).GetName() : info.Name;
-                res.AddChild(Serialize(tydname, info.GetValue(obj)));
+                res.AddChild(Serialize(tydname, info.GetValue(obj),ignorenullvalues));
             }
             return res;
         }
