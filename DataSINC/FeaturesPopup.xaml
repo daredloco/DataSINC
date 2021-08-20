@@ -48,7 +48,6 @@
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Name="categories_new" Header="Add Category"/>
-                        <MenuItem Name="categories_edit" Header="Edit Category"/>
                         <MenuItem Name="categories_remove" Header="Remove Category"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
