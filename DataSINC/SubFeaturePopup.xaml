@@ -1,0 +1,56 @@
+﻿<Window x:Class="DataSINC.SubFeaturePopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataSINC"
+        mc:Ignorable="d"
+        Title="SubFeaturePopup" Height="450" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ToolWindow">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
+            <Label Name="l_name">Name:</Label>
+            <TextBox Name="tb_name" Width="150"/>
+            <Label Name="l_description">Description:</Label>
+            <TextBox Name="tb_description" Width="150" Height="85" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            <Label Name="l_level">Level:</Label>
+            <Slider Name="sl_level" Minimum="1" Maximum="3" TickFrequency="1" IsSnapToTickEnabled="True" />
+            <Label Name="l_unlock">Unlock:</Label>
+            <TextBox Name="tb_unlock" Width="150"/>
+            <Label Name="l_submarkets">Submarkets:</Label>
+            <TextBox Name="tb_submarket0" Width="150" Margin="0,2,0,0"/>
+            <TextBox Name="tb_submarket1" Width="150" Margin="0,2,0,0"/>
+            <TextBox Name="tb_submarket2" Width="150" Margin="0,2,0,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
+            <Label Name="l_devtime">DevTime:</Label>
+            <TextBox Name="tb_devtime" Width="150"/>
+            <Label Name="l_codeart">CodeArt:</Label>
+            <Slider Name="sl_codeart" Minimum="0" Maximum="1" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+            <Label Name="l_server">Server:</Label>
+            <TextBox Name="tb_sever" Width="150"/>
+            <Label Name="l_categories">Software Categories:</Label>
+            <ListBox Name="lb_categories" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="categories_new" Header="Add Category"/>
+                        <MenuItem Name="categories_remove" Header="Remove Category"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+            <Label Name="l_script">Scripts:</Label>
+            <ComboBox Name="cb_script">
+                <ComboBoxItem Content="Script_EndOfDay"/>
+                <ComboBoxItem Content="Script_AfterSales"/>
+                <ComboBoxItem Content="Script_OnRelease"/>
+                <ComboBoxItem Content="Script_NewCopies"/>
+                <ComboBoxItem Content="Script_WorkItemChange"/>
+            </ComboBox>
+            <TextBox Name="tb_script" Width="150" Height="85" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            <Button Name="bt_add" Margin="0,5,0,0">Add</Button>
+        </StackPanel>
+    </Grid>
+</Window>
