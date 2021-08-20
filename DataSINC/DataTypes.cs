@@ -51,36 +51,50 @@ namespace DataSINC
 			}
 		}
 
+		[Serializable]
 		public class SoftwareType
 		{
-			public string Location { get; set; }
-			public string Title { get; set; }
+			[TydIgnore]
+			public string Location;
+			[TydIgnore]
+			public string Title;
 
 			//DATA
-			public string Name { get; set; }
-			public bool Override { get; set; } //OPTIONAL
-			public string Category { get; set; }
-			public List<SoftwareTypeCategories> Categories { get; set; } //OPTIONAL
-			public string Description { get; set; }
-			public int Unlock { get; set; }
-			public double Random { get; set; }
-			public int IdealPrice { get; set; } //OPTIONAL
-			public int OptimalDevTime { get; set; }
-			public double Popularity { get; set; } //OPTIONAL
-			public int Retention { get; set; } //OPTIONAL
+			[TydName("Name")]
+			private string name;
+			public string Name { get => name; set => name = value; }
+			public bool Override; //OPTIONAL
+			public string Category;
+			[TydName("Categories")]
+			private SoftwareTypeCategories[] categories;
+			public List<SoftwareTypeCategories> Categories { get => categories.ToList(); set => categories = value.ToArray(); } //OPTIONAL
+			public string Description;
+			public int Unlock;
+			public double Random;
+			public int IdealPrice; //OPTIONAL
+			public int OptimalDevTime;
+			public double Popularity; //OPTIONAL
+			public int Retention; //OPTIONAL
+			[TydName("Iterative")]
 			private double iterative;
 			public double Iterative { //OPTIONAL
 				get => iterative;
 				set { if (value > 1) { iterative = 1; return; } if (value < 0) { iterative = 0; return; } iterative = value; } 
 			}
-			public List<string> OSSupport { get; set; } //OPTIONAL
-			public bool OneClient { get; set; }
-			public bool InHouse { get; set; }
-			public string NameGenerator { get; set; } //OPTIONAL IF GENERATORS SET IN SUBS
-			public List<string> SubmarketNames { get; set; }
-			public List<SoftwareTypeSpecFeatures> Features { get; set; }
+			[TydName("OSSupport")]
+			private string[] ossupport;
+			public List<string> OSSupport { get => ossupport.ToList(); set => ossupport = value.ToArray(); } //OPTIONAL
+			public bool OneClient;
+			public bool InHouse;
+			public string NameGenerator; //OPTIONAL IF GENERATORS SET IN SUBS
+			[TydName("SubmarketNames")]
+			private string[] submarketnames;
+			public List<string> SubmarketNames { get => submarketnames.ToList(); set => submarketnames = value.ToArray(); }
+			[TydName("Features")]
+			private SoftwareTypeSpecFeatures[] features;
+			public List<SoftwareTypeSpecFeatures> Features { get => features.ToList(); set => features = value.ToArray(); }
 			public bool Hardware; //OPTIONAL, only added if SoftwareType is Hardware
-			public Manufacturing Manufacturing { get; set; } //OPTIONAL, only added if SoftwareType is Hardware
+			public Manufacturing Manufacturing; //OPTIONAL, only added if SoftwareType is Hardware
 
 			public SoftwareType(string fname)
 			{
@@ -109,6 +123,7 @@ namespace DataSINC
 				return st;
 			}
 
+			[Obsolete]
 			public void Save()
 			{
 				TydDocument doc = new TydDocument();
