@@ -190,8 +190,7 @@ namespace DataSINC
 			public int[] Submarkets;
 			private double CodeArt;
 			public double codeart { get => CodeArt; set { if (value > 1) { CodeArt = 1; return; } if (value < 0) { CodeArt = 0; return; } CodeArt = value; } }
-			private double Server;
-			public double server { get => Server; set { if (value > 1) { Server = 1; return; } if (value < 0) { Server = 0; return; } Server = value; } }
+			public double Server;
 			public bool Optional; //OPTIONAL (Will be OFF by default)
 			public string[] SoftwareCategories; //OPTIONAL
 			public SoftwareTypeSubFeatures[] Features;
