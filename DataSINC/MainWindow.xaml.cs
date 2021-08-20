@@ -31,10 +31,9 @@ namespace DataSINC
 		{
 			InitializeComponent();
 			CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
-			Debug.SetExceptionLogger();
 			Debug.Info("Open MainWindow...");
 			Settings.Load();
-			StartupLoading();
+
 			menu_about.Click += MenuAboutClick;
 			menu_help.Click += MenuHelpClick;
 			menu_git.Click += MenuGitClick;
@@ -98,6 +97,9 @@ namespace DataSINC
 
 			Closing += OnShutdown;
 			KeyDown += OnControlKeys;
+
+
+			StartupLoading();
 		}
 
 		private void StartupLoading()
@@ -169,6 +171,10 @@ namespace DataSINC
 
 		private void StEditCategory(object sender, RoutedEventArgs e)
 		{
+			if(stlb_categories.SelectedItem == null)
+			{
+				return;
+			}
 			DataTypes.SoftwareType st = lb_softwaretypes.SelectedItem as DataTypes.SoftwareType;
 			DataTypes.SoftwareTypeCategories cat = st.Categories.First(x => x.Name == stlb_categories.SelectedItem.ToString());
 			CategoriesPopup popup = new CategoriesPopup(cat);
@@ -667,6 +673,7 @@ namespace DataSINC
 						Settings.latestmod = fbd.SelectedPath;
 						Settings.Save();
 						Database.Instance = new Database(fbd.SelectedPath);
+						GenerateLists();
 						IsSaved = false;
 						SetWindowTitle();
 					}
@@ -746,6 +753,11 @@ namespace DataSINC
 			{
 				Title = "Data SINC \"" + Settings.GetName() + "\" (unsaved changes)";
 			}
+		}
+
+		private void ClearInputs()
+		{
+			//TODO: Clear all inputs if loading mod or creating new one, because the inputfields won't be cleared beforehand
 		}
 	}
 }
