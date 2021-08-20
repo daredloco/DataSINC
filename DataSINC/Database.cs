@@ -144,10 +144,15 @@ namespace DataSINC
 			foreach(DataTypes.CompanyType ctype in CompanyTypes)
 			{
 				if (File.Exists(ctype.Location)) File.Delete(ctype.Location);
-				Tyd.TydNode node = Tyd.TydConverter.Serialize("CompanyType", ctype);
+				Tyd.TydNode node = Tyd.TydConverter.Serialize("CompanyType", ctype, true);
 				File.WriteAllText(ctype.Location, node.FullTyd);
 			}
-			//TODO: Add Software Types to the list
+			foreach(DataTypes.SoftwareType stype in SoftwareTypes)
+			{
+				if (File.Exists(stype.Location)) File.Delete(stype.Location);
+				Tyd.TydNode node = Tyd.TydConverter.Serialize("SoftwareType", stype, true);
+				File.WriteAllText(stype.Location, node.FullTyd);
+			}
 			foreach (DataTypes.NameGenerator ngen in NameGenerators)
 			{
 				if (File.Exists(ngen.Location)) File.Delete(ngen.Location);
