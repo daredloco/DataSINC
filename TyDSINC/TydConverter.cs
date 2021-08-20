@@ -72,7 +72,7 @@ namespace Tyd
                 {
                     continue;
                 }
-                var child = table.GetChild(info.Name);
+                var child = Attribute.IsDefined(info, typeof(TydAttributes.TydName)) ? table.GetChild(((TydAttributes.TydName)Attribute.GetCustomAttribute(info, typeof(TydAttributes.TydName))).GetName()) : table.GetChild(info.Name);
                 if (child == null)
                 {
                     continue;
@@ -125,7 +125,8 @@ namespace Tyd
 				{
                     continue;
                 }
-                res.AddChild(Serialize(info.Name, info.GetValue(obj)));
+                string tydname = Attribute.IsDefined(info, typeof(TydAttributes.TydName)) ? ((TydAttributes.TydName)Attribute.GetCustomAttribute(info, typeof(TydAttributes.TydName))).GetName() : info.Name;
+                res.AddChild(Serialize(tydname, info.GetValue(obj)));
             }
             return res;
         }

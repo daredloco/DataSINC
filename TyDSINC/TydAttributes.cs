@@ -14,5 +14,21 @@ namespace Tyd
 			public TydIgnore()
 			{ }
 		}
+
+		[AttributeUsage(AttributeTargets.Field)]
+		public sealed class TydName : Attribute
+		{
+			private string Name;
+
+			public TydName(string name)
+			{
+				Name = name;
+			}
+
+			public string GetName()
+			{
+				return Name;
+			}
+		}
 	}
 }
