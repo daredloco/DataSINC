@@ -216,14 +216,13 @@ namespace DataSINC
 			public string Name;
 			public string Description;
 			private int Level;
-			public int level { get => Level; set { if (value > 1) { Level = 1; return; } if (value < 0) { Level = 0; return; } Level = value; } }
+			public int level { get => Level; set { if (value > 3) { Level = 3; return; } if (value < 1) { Level = 1; return; } Level = value; } }
 			public int Unlock;
 			public int DevTime;
 			public int[] Submarkets;
 			private double CodeArt;
 			public double codeart { get => CodeArt; set { if (value > 1) { CodeArt = 1; return; } if (value < 0) { CodeArt = 0; return; } CodeArt = value; } }
-			private double Server;
-			public double server { get => Server; set { if (value > 1) { Server = 1; return; } if (value < 0) { Server = 0; return; } Server = value; } }
+			public double Server;
 			public string[] SoftwareCategories; //OPTIONAL
 			public string Script_EndOfDay; //OPTIONAL
 			public string Script_AfterSales; //OPTIONAL
