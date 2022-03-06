@@ -449,5 +449,11 @@ namespace DataSINC
 
 			public ManufacturingProcesses() { }
 		}
+
+		public class ManufacturingImage
+		{
+			public string location;
+
+		}
 	}
 }

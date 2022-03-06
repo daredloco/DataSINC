@@ -27,6 +27,8 @@ namespace DataSINC
 	{
 		public bool IsSaved = true;
 
+		//TODO: Set selected index for softwaretype, companytype listboxes for not jumping to index 0 all the time
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -207,7 +209,7 @@ namespace DataSINC
 			ManufacturingPopup popup = new ManufacturingPopup(st);
 			if(popup.ShowDialog() == true)
 			{
-				st.Manufacturing = ManufacturingPopup.Result;
+				st.Manufacturing = popup.Result;
 				if(st.Manufacturing == null)
 				{
 					st.Hardware = false;

@@ -529,7 +529,6 @@ namespace DataSINC
 							Debug.Exception(new InvalidCastException("The node 'Hardware' must be a valid boolean!"));
 							return null;
 						}
-						//TODO: Handle the Hardware here, it would be best to load the Manufacturing here as well
 						isHardware = bool.Parse((node as TydString).Value);
 						break;
 					//The Manufacturing node (Needs to be a TydTable!)

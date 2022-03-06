@@ -10,9 +10,25 @@
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <CheckBox Name="cb_hardware" Content="Hardware enabled"/>
             <Label Name="l_components">Components:</Label>
-            <ListBox Name="lb_components" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            <ListBox Name="lb_components" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="cmcomp_new" Header="Add Component"/>
+                        <MenuItem Name="cmcomp_edit" Header="Edit Component"/>
+                        <MenuItem Name="cmcomp_remove" Header="Remove Component"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
             <Label Name="l_processes">Processes:</Label>
-            <ListBox Name="lb_processes" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            <ListBox Name="lb_processes" Height="50" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="cmproc_new" Header="Add Process"/>
+                        <MenuItem Name="cmproc_edit" Header="Edit Process"/>
+                        <MenuItem Name="cmproc_remove" Header="Remove Process"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
             <Label Name="l_finaltime">FinalTime:</Label>
             <TextBox Name="tb_finaltime" Width="150"></TextBox>
             <Button Name="bt_add" Margin="0,15,0,0">Update</Button>

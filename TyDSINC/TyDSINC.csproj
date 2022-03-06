@@ -51,6 +51,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,6 +65,7 @@
     <Compile Include="Inheritance.cs" />
     <Compile Include="Nodes\TydCollection.cs" />
     <Compile Include="Nodes\TydDocument.cs" />
+    <Compile Include="Nodes\TydImage.cs" />
     <Compile Include="Nodes\TydList.cs" />
     <Compile Include="Nodes\TydNode.cs" />
     <Compile Include="Nodes\TydString.cs" />

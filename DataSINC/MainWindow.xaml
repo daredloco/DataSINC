@@ -183,7 +183,7 @@
                                 <TextBox Name="sttb_popularity" Width="150"/>
                                 <Label Name="stl_retention">Retention:</Label>
                                 <TextBox Name="sttb_retention" Width="150"/>
-                                <Button Name="stbt_manufacturing"  Width="150" Height="30" Margin="0,15,0,0" IsEnabled="False">Manufacturing</Button>
+                                <Button Name="stbt_manufacturing"  Width="150" Height="30" Margin="0,15,0,0">Manufacturing</Button>
 
                             </StackPanel>
                         </Grid>
@@ -294,6 +294,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
+
         </TabControl>
     </Grid>
 </Window>

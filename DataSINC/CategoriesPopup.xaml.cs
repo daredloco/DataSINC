@@ -23,6 +23,8 @@ namespace DataSINC
 
 		public DataTypes.SoftwareTypeCategories Category;
 		public DataTypes.SoftwareTypeCategories NewCategory;
+		private bool HasHardware;
+		private DataTypes.Manufacturing Manufacturing;
 
 		public CategoriesPopup(DataTypes.SoftwareTypeCategories cat)
 		{
@@ -34,7 +36,25 @@ namespace DataSINC
 				LoadCategory();
 			}
 
+			bt_manufacturing.Click += ShowManufacturing;
 			bt_add.Click += UpdateCategory;
+		}
+
+		private void ShowManufacturing(object sender, RoutedEventArgs e)
+		{
+			ManufacturingPopup popup = new ManufacturingPopup(Category);
+			if (popup.ShowDialog() == true)
+			{
+				Manufacturing = popup.Result;
+				if (Manufacturing == null)
+				{
+					HasHardware = false;
+				}
+				else
+				{
+					HasHardware = true;
+				}
+			}
 		}
 
 		private void UpdateCategory(object sender, RoutedEventArgs e)
@@ -98,7 +118,9 @@ namespace DataSINC
 				Retention = int.Parse(tb_retention.Text),
 				Submarkets = new int[3] { int.Parse(tb_submarket0.Text), int.Parse(tb_submarket1.Text), int.Parse(tb_submarket2.Text) },
 				timeScale = double.Parse(tb_timescale.Text),
-				Unlock = int.Parse(tb_unlock.Text)
+				Unlock = int.Parse(tb_unlock.Text),
+				Hardware = HasHardware,
+				Manufacturing = Manufacturing
 			};
 			DialogResult = true;
 			Close();

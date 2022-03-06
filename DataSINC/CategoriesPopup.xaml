@@ -39,7 +39,7 @@
             <TextBox Name="tb_namegen" Width="150" />
             <Label Name="l_lagbehind">Lagbehind:</Label>
             <TextBox Name="tb_lagbehind" Width="150" />
-            <Button Name="bt_manufacturing" Margin="0,5,0,0" IsEnabled="False">Manufacturing</Button>
+            <Button Name="bt_manufacturing" Margin="0,5,0,0">Manufacturing</Button>
             <Button Name="bt_add" Margin="0,5,0,0">Add</Button>
         </StackPanel>
     </Grid>

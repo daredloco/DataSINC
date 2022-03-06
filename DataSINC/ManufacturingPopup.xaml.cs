@@ -19,14 +19,40 @@ namespace DataSINC
 	/// </summary>
 	public partial class ManufacturingPopup : Window
 	{
-		public static List<DataTypes.ManufacturingComponents> Components;
-		public static List<DataTypes.ManufacturingProcesses> Processes;
-		public static DataTypes.Manufacturing Result;
+		public List<DataTypes.ManufacturingComponents> Components;
+		public List<DataTypes.ManufacturingProcesses> Processes;
+		public DataTypes.Manufacturing Result;
+
+		public ManufacturingPopup(DataTypes.SoftwareTypeCategories cat)
+		{
+			InitializeComponent();
+			Components = new List<DataTypes.ManufacturingComponents>();
+			Processes = new List<DataTypes.ManufacturingProcesses>();
+			if (cat == null || cat.Manufacturing == null)
+			{
+				tb_finaltime.Text = "0";
+			}
+			else
+			{
+				Components.AddRange(cat.Manufacturing.Components);
+				Processes.AddRange(cat.Manufacturing.Processes);
+				tb_finaltime.Text = cat.Manufacturing.FinalTime.ToString();
+			}
+			cb_hardware.IsChecked = cat.Hardware;
+			foreach (DataTypes.ManufacturingComponents comp in Components)
+			{
+				lb_components.Items.Add(comp.Name);
+			}
+			foreach (DataTypes.ManufacturingProcesses proc in Processes)
+			{
+				lb_processes.Items.Add(proc.Output);
+			}
+			bt_add.Click += AddClicked;
+		}
 
 		public ManufacturingPopup(DataTypes.SoftwareType st)
 		{
 			InitializeComponent();
-			Result = null;
 			if(st.Manufacturing == null)
 			{
 				Components = new List<DataTypes.ManufacturingComponents>();
